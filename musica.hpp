@@ -1,15 +1,12 @@
-#ifndef MUSICA_H
-#define MUSICA_H
+#pragma once
 
 #include <string>
-
-using std::string;
 
 class Musica{
 
 private:
     // Atributos da classe
-    string nome, artista;
+    std::string nome, artista;
 
 public:
     // Métodos da classe
@@ -17,12 +14,10 @@ public:
     Musica();
     ~Musica();
 
-    string getNome();
-    void setNome(string nome);
+    std::string getNome();
+    void setNome(std::string nome);
 
-    string getArtista();
-    void setArtista(string artista);
+    std::string getArtista();
+    void setArtista(std::string artista);
 
 };
-
-#endif

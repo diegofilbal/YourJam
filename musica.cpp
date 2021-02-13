@@ -1,5 +1,5 @@
 #include <iostream>
-#include "musica.h"
+#include "musica.hpp"
 
 // Construtor
 Musica::Musica(){
@@ -12,21 +12,21 @@ Musica::~Musica(){
 }
 
 // Retorna o nome da música
-string Musica::getNome(){
+std::string Musica::getNome(){
     return nome;
 }
 
 // Define o nome da música 
-void Musica::setNome(string nome){
+void Musica::setNome(std::string nome){
     this->nome = nome;
 }
 
 // Retorna o nome do artista
-string Musica::getArtista(){
+std::string Musica::getArtista(){
     return artista;
 }
 
 // Define o nome do artista
-void Musica::setArtista(string artista){
+void Musica::setArtista(std::string artista){
     this->artista = artista;
 }
