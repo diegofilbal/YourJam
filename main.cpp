@@ -240,7 +240,12 @@ int main(int argc, char const *argv[]){
                                 if(posicao >= 1 && posicao <= qtd_pl){ // Verifica se a posição é válida
                                     
                                     posicao--; // Ajusta a posição para a faixa de valores dos índices (0 -> n-1)
-                                    for(int i = posicao; i < qtd_pl - 1; i++){ // Percorre o array realocando as posições
+
+                                    for(int i = playlists[posicao].getLista()->getTamanho(); i > 0 ; i--){ // Remove todas as músicas da playlista a ser apagada
+                                        playlists[posicao].removeMusicaPos(i);
+                                    }
+
+                                    for(int i = posicao; i < qtd_pl - 1; i++){ // Percorre o array de playlists realocando as posições
                                         playlists[i].setNome(playlists[i+1].getNome());
                                         playlists[i].setLista(playlists[i+1].getLista());
                                     }
