@@ -23,7 +23,7 @@ main.o: main.cpp musica.o node.o lista.o playlist.o
 	g++ -O0 -g -Wall -ansi -pedantic -std=c++11 -c main.cpp
 
 # Executa o programa
-run: musica.o node.o lista.o playlist.o main.o
+run: musica.o node.o lista.o playlist.o main.o all
 	./main
 
 # Apaga o executável e os arquivos objetos
