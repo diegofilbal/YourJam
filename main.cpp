@@ -212,7 +212,6 @@ int main(int argc, char const *argv[]){
                                     playlists[qtd_pl].setNome(nome_playlist);
                                     cout << "\nPlaylist \"" << playlists[qtd_pl].getNome() << "\" adicionada com sucesso!" << endl;
                                     qtd_pl++;
-                                    // VERIFICAR SE HÁ MAIS ALGO A FAZER AQUI
                                 }else{
                                     cout << "\nEsta playlist já existe!" << endl;
                                 }
@@ -399,18 +398,15 @@ int main(int argc, char const *argv[]){
                             case 2: // Remover música
                                 
                                 if(playlists[op3].getLista()->getTamanho() > 0){ // Verifica se há músicas cadastradas
-                                    
-                                    playlists[op3].getLista()->imprime(); // Imprime a lista de músicas da playlist para o usuário
+
+                                    playlists[op3].imprime(playlists[op3].getLista()->buscaPos(0), 1); // Imprime a lista de músicas da playlist para o usuário
                                     
                                     cout << "\nDigite o número da música que deseja remover da playlist:" << endl;
                                     cin >> posicao1;
                                     cin.ignore();
 
                                     if(posicao1 >= 1 && posicao1 <= playlists[op3].getLista()->getTamanho()){ // Verifica se a posição digitada é válida
-
-                                        playlists[op3].removeMusicaPos(posicao1);
-                                        //musicas_sistema.removePos(posicao1); // Remove a música do sistema
-                                        
+                                        playlists[op3].removeMusicaPos(posicao1); // Remove música da playlist
                                         cout << "\nMúsica removida com sucesso!" << endl;
                                     }else{
                                         cout << "\nPosição inválida!" << endl;
@@ -429,10 +425,9 @@ int main(int argc, char const *argv[]){
                                 break;
                             
                             case 4: // Exibir músicas da playlist
-                                
-                                if(playlists[op3].getLista()->getTamanho() > 0){
-                                    // CHAMAR FUNÇÃO RECURSIVA AQUI
-                                    playlists[op3].getLista()->imprime();
+
+                                if(playlists[op3].getLista()->getTamanho() > 0){ // Verifica se há músicas na playlist
+                                    playlists[op3].imprime(playlists[op3].getLista()->buscaPos(0), 1); // Imprime as músicas da playlist
                                 }else{
                                     cout << "Não há nenhuma música nessa playlist!" << endl;
                                 }
@@ -473,7 +468,7 @@ int main(int argc, char const *argv[]){
                     }
 
                     do{
-                        cout << "Digite o número da playlist que deseja reproduzir:" << endl;
+                        cout << "\n\nDigite o número da playlist que deseja reproduzir:" << endl;
                         cin >> op3;
                         cin.ignore();
                         if(op3 < 1 || op3 > qtd_pl){

@@ -42,6 +42,15 @@ bool Playlist::moveMusica(int pos_inicial, int pos_final, Musica musica){
     return true;
 }
 
+// Imprime as músicas da playlist recursivamente
+void Playlist::imprime(Node* node, int contador){
+    if(node == nullptr){
+        return;
+    }
+    std::cout << contador << ". " << node->musica->getArtista() << " - " << node->musica->getNome() << std::endl;
+    imprime(node->next, contador + 1);
+}
+
 // Retorna a playlist
 Lista* Playlist::getLista(){
     return playlist;
