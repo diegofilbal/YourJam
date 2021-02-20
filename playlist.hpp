@@ -20,7 +20,7 @@ public:
     bool adicionaMusicaInicio(Musica musica);
     bool adicionaMusicaFim(Musica musica);
     bool adicionaMusicaPos(int posicao, Musica musica);
-    bool removeMusicaPos(int posicao);
+    void removeMusicaPos(int posicao);
     bool moveMusica(int pos_inicial, int pos_final, Musica musica);
     Musica* proxMusica();
     void mostraMusica();

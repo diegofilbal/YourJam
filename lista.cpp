@@ -14,8 +14,7 @@ Lista::Lista(){
 // Destrutor
 Lista::~Lista(){
 
-    //  Verifica se a lista já não está vazia
-    if(tamanho == 0){
+    if(tamanho == 0){ //  Verifica se a lista já não está vazia
         return;
     }else{
         // Lista não está vazia
@@ -45,11 +44,11 @@ bool Lista::insereInicio(Musica musica){
         temp->next = head;
         head = temp;
 
-        if(tamanho == 1){
-            tail = temp->next;
+        if(tamanho == 1){ //  Verifica se só há um elemento na lista
+            tail = temp->next; // Atualiza o tail
         }
 
-        tamanho++;
+        tamanho++; //Incrementa o tamanho da lista
 
         return true; // Retorna código de sucesso
 
@@ -146,23 +145,26 @@ void Lista::removePos(int posicao){
     Node *atual = head;
     Node *anterior = nullptr;
 
-    for(int i=1;i<posicao;i++){
+    for(int i = 1; i < posicao; i++){ // Percorre a lista até chegar no elemento a ser removida
       anterior=atual;
       atual=atual->next;
     }
 
-    if(atual == head){
+    if(atual == head){ // Verifica se o elemento a ser removida é o primeiro
         head = head->next;
     }else{
-        if(atual == tail){
+        if(atual == tail){ // Verifica se o elemento a ser removida é o último
             anterior->next = nullptr;
             tail = anterior;
         }else{
             anterior->next=atual->next;
         }
     }
-        
+    
+    // Decrementa o tamanho da lista
     tamanho--;
+
+    // Libera os espaços alocados para a Música e para o Node
     delete atual->musica;
     delete atual;
 }
@@ -241,7 +243,7 @@ void Lista::imprime(){
 
     Node *temp = head;
 
-    for(int i = 0; i < tamanho; i++){
+    for(int i = 0; i < tamanho; i++){ // Percorre os elementos da lista e imprime um a um
         std::cout << i+1 << ". " << temp->musica->getArtista() << " - " << temp->musica->getNome() << std:: endl;
         temp = temp->next;
     }
@@ -250,8 +252,4 @@ void Lista::imprime(){
 // Retorna o tamanho da lista
 int Lista::getTamanho(){
     return tamanho;
-}
-
-void Lista::setTamanho(int tamanho){
-    this->tamanho = tamanho;
 }

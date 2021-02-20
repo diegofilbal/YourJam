@@ -8,7 +8,6 @@
 // Construtor
 Playlist::Playlist(){
     playlist = new Lista;
-    playlist->setTamanho(0);
     tocando = nullptr;
 }
 
@@ -19,26 +18,22 @@ Playlist::~Playlist(){
 
 // Adiciona uma música no início da playlist
 bool Playlist::adicionaMusicaInicio(Musica musica){
-    // A FAZER
-    return true;
+    return playlist->insereInicio(musica); // Retorna código retornado pela função da classe Lista
 }
 
 // Adiciona uma música no fim da playlist
 bool Playlist::adicionaMusicaFim(Musica musica){
-    // A FAZER
-    return true;
+    return playlist->insereFim(musica); // Retorna código retornado pela função da classe Lista
 }
 
 // Adiciona uma música em uma posição específica da playlist
 bool Playlist::adicionaMusicaPos(int pos, Musica musica){
-    // A FAZER
-    return true;
+    return playlist->inserePos(pos, musica); // Retorna código retornado pela função da classe Lista
 }
 
 // Remove uma música em uma posição específica da playlist
-bool Playlist::removeMusicaPos(int posicao){
-    // A FAZER
-    return true;
+void Playlist::removeMusicaPos(int posicao){
+    playlist->removePos(posicao); // Retorna código retornado pela função da classe Lista
 }
 
 // Move uma música dentro da playlist
@@ -47,18 +42,35 @@ bool Playlist::moveMusica(int pos_inicial, int pos_final, Musica musica){
     return true;
 }
 
+// Retorna a playlist
 Lista* Playlist::getLista(){
     return playlist;
 }
 
+// Descarta a lista antiga e faz uma cópia da lista recebida
 void Playlist::setLista(Lista* lista){
-    this->playlist = lista;
+
+    int tamanho_pl = this->playlist->getTamanho();
+
+    for (int i = 0; i < tamanho_pl; i++){ // Remove todos os elementos antigos
+        this->playlist->removePos(0);
+    }
+
+    if(lista != nullptr){ // Verifica se o ponteiro não é nulo
+        tamanho_pl = lista->getTamanho();
+
+        for (int i = 0; i < tamanho_pl; i++){ // Insere todos os elementos da nova lista na lista original
+            this->playlist->insereFim(*lista->buscaMusicaPos(i));
+        }
+    }    
 }
 
+// Define o nome da playlist
 void Playlist::setNome(std::string nome){
     this->nome = nome;
 }
 
+// Retorna o nome da playlist
 std::string Playlist::getNome(){
     return nome;
 }

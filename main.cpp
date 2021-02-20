@@ -23,6 +23,7 @@ int main(int argc, char const *argv[]){
     Musica musica;
     Lista musicas_sistema;
     Playlist *playlists = new Playlist[MAX_PL], aux_pl;
+    //Playlist playlists[MAX_PL], aux_pl;
 
     //system("clear");
 
@@ -238,30 +239,55 @@ int main(int argc, char const *argv[]){
                                 cin >> posicao1;
                                 cin.ignore();
 
-                                if(posicao1 >= 1 && posicao1 <= qtd_pl){ // Verifica se a posição é válida
-                                    
+                                if (posicao1 >= 1 && posicao1 <= qtd_pl){ // Verifica se a posição é válida
+
                                     posicao1--; // Ajusta a posição para a faixa de valores dos índices (0 -> n-1)
-
-                                    for(int i = playlists[posicao1].getLista()->getTamanho(); i > 0 ; i--){ // Remove todas as músicas da playlista a ser apagada
-                                        playlists[posicao1].removeMusicaPos(i);
+                                    for (int i = posicao1; i < qtd_pl - 1; i++){ // Percorre o array realocando as posições
+                                        playlists[i].setNome(playlists[i + 1].getNome());
+                                        playlists[i].setLista(playlists[i + 1].getLista());
                                     }
 
-                                    delete playlists[posicao1].getLista();
+                                    playlists[qtd_pl - 1].setNome("");
+                                    playlists[qtd_pl - 1].setLista(nullptr);
 
-                                    for(int i = posicao1; i < qtd_pl - 1; i++){ // Percorre o array de playlists realocando as posições
-                                        playlists[i].setNome(playlists[i+1].getNome());
-                                        playlists[i].setLista(playlists[i+1].getLista());
-                                    }
                                     qtd_pl--; // Atualiza o tamanho da playlist
 
                                     cout << "Playlist removida com sucesso!" << endl;
-
                                 }else{
                                     cout << "\nPosição inválida!" << endl;
                                 }
                             }else{
                                 cout << "Não há nenhuma playlist cadastrada!" << endl;
                             }
+
+                            //     if(posicao1 >= 1 && posicao1 <= qtd_pl){ // Verifica se a posição é válida
+                                    
+                            //         posicao1--; // Ajusta a posição para a faixa de valores dos índices (0 -> n-1)
+
+                            //         for(int i = playlists[posicao1].getLista()->getTamanho(); i > 0 ; i--){ // Remove todas as músicas da playlista a ser apagada
+                            //             playlists[posicao1].removeMusicaPos(i);
+                            //         }
+
+                            //         delete playlists[posicao1].getLista();
+
+                            //         playlists[posicao1].setLista(nullptr);
+
+                            //         for(int i = posicao1; i < qtd_pl - 1; i++){ // Percorre o array de playlists realocando as posições
+                            //             playlists[i].setNome(playlists[i+1].getNome());
+                            //             playlists[i].setLista(playlists[i+1].getLista());
+                            //         }
+
+                            //         //delete playlists[qtd_pl - 1].getLista();
+                            //         qtd_pl--; // Atualiza o tamanho da playlist
+
+                            //         cout << "Playlist removida com sucesso!" << endl;
+
+                            //     }else{
+                            //         cout << "\nPosição inválida!" << endl;
+                            //     }
+                            // }else{
+                            //     cout << "Não há nenhuma playlist cadastrada!" << endl;
+                            // }
 
                             cout << "\nPressione ENTER para continuar..." << endl;
                             getchar();
@@ -302,7 +328,7 @@ int main(int argc, char const *argv[]){
                 if(qtd_pl > 0){ // Verifica se há playlists cadastradas
                 
                     for(int i = 0; i < qtd_pl; i++){
-                        cout << i+1 << " - " << playlists[i].getNome();
+                        cout << i+1 << " - " << playlists[i].getNome() << endl;
                     }
 
                     do{
@@ -365,8 +391,9 @@ int main(int argc, char const *argv[]){
 
                                             }else{
                                                 // Insere em uma posição específica
-                                                
+                                                system("clear");
                                                 // IMPRIME AS MUSICAS DA PLAYLIST
+                                                playlists[op3].getLista()->imprime();
 
                                                 cout << "\nDigite a posição em que deseja inserir a música: " << endl;
                                                 cin >> posicao2;
@@ -399,6 +426,32 @@ int main(int argc, char const *argv[]){
                                 break;
                             
                             case 2: // Remover música
+                                
+                                if(playlists[op3].getLista()->getTamanho() > 0){ // Verifica se há músicas cadastradas
+                                    
+                                    playlists[op3].getLista()->imprime(); // Imprime a lista de músicas da playlist para o usuário
+                                    
+                                    cout << "\nDigite o número da música que deseja remover da playlist:" << endl;
+                                    cin >> posicao1;
+                                    cin.ignore();
+
+                                    if(posicao1 >= 1 && posicao1 <= playlists[op3].getLista()->getTamanho()){ // Verifica se a posição digitada é válida
+
+                                        playlists[op3].removeMusicaPos(posicao1);
+                                        //musicas_sistema.removePos(posicao1); // Remove a música do sistema
+                                        
+                                        cout << "\nMúsica removida com sucesso!" << endl;
+                                    }else{
+                                        cout << "\nPosição inválida!" << endl;
+                                    }
+                                }else{
+                                    cout << "Não há músicas para remover!" << endl;
+                                }
+
+                                cout << "\nPressione ENTER para continuar..." << endl;
+                                getchar();
+                                system("clear");
+
                                 break;
 
                             case 3: // Mover música
@@ -406,8 +459,9 @@ int main(int argc, char const *argv[]){
                             
                             case 4: // Exibir músicas da playlist
                                 
-                                if(playlists->getLista()->getTamanho() > 0){
+                                if(playlists[op3].getLista()->getTamanho() > 0){
                                     // CHAMAR FUNÇÃO RECURSIVA AQUI
+                                    playlists[op3].getLista()->imprime();
                                 }else{
                                     cout << "Não há nenhuma música nessa playlist!" << endl;
                                 }
