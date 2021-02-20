@@ -260,35 +260,6 @@ int main(int argc, char const *argv[]){
                                 cout << "Não há nenhuma playlist cadastrada!" << endl;
                             }
 
-                            //     if(posicao1 >= 1 && posicao1 <= qtd_pl){ // Verifica se a posição é válida
-                                    
-                            //         posicao1--; // Ajusta a posição para a faixa de valores dos índices (0 -> n-1)
-
-                            //         for(int i = playlists[posicao1].getLista()->getTamanho(); i > 0 ; i--){ // Remove todas as músicas da playlista a ser apagada
-                            //             playlists[posicao1].removeMusicaPos(i);
-                            //         }
-
-                            //         delete playlists[posicao1].getLista();
-
-                            //         playlists[posicao1].setLista(nullptr);
-
-                            //         for(int i = posicao1; i < qtd_pl - 1; i++){ // Percorre o array de playlists realocando as posições
-                            //             playlists[i].setNome(playlists[i+1].getNome());
-                            //             playlists[i].setLista(playlists[i+1].getLista());
-                            //         }
-
-                            //         //delete playlists[qtd_pl - 1].getLista();
-                            //         qtd_pl--; // Atualiza o tamanho da playlist
-
-                            //         cout << "Playlist removida com sucesso!" << endl;
-
-                            //     }else{
-                            //         cout << "\nPosição inválida!" << endl;
-                            //     }
-                            // }else{
-                            //     cout << "Não há nenhuma playlist cadastrada!" << endl;
-                            // }
-
                             cout << "\nPressione ENTER para continuar..." << endl;
                             getchar();
                             system("clear");
