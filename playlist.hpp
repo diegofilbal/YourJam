@@ -21,10 +21,9 @@ public:
     bool adicionaMusicaFim(Musica musica);
     bool adicionaMusicaPos(int posicao, Musica musica);
     void removeMusicaPos(int posicao);
-    bool moveMusica(int pos_inicial, int pos_final, Musica musica);
+    void moveMusica(int pos_inicial, int pos_final);
     void imprime(Node* node, int contador);
     Musica *proxMusica();
-    void mostraMusica();
     Lista* getLista();
     void setLista(Lista* lista);
     std::string getNome();

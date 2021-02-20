@@ -37,9 +37,15 @@ void Playlist::removeMusicaPos(int posicao){
 }
 
 // Move uma música dentro da playlist
-bool Playlist::moveMusica(int pos_inicial, int pos_final, Musica musica){
-    // A FAZER
-    return true;
+void Playlist::moveMusica(int pos_inicial, int pos_final){
+
+    Musica musica;// Variável a receber as informações da musica a ser movida
+
+    musica.setNome(playlist->buscaMusicaPos(pos_inicial - 1)->getNome());
+    musica.setArtista(playlist->buscaMusicaPos(pos_inicial - 1)->getArtista());
+
+    playlist->removePos(pos_inicial); // Remove a música da posição atual
+    playlist->inserePos(pos_final, musica); // Insere a música na posição para qual o usuário deseja movê-la
 }
 
 // Imprime as músicas da playlist recursivamente
