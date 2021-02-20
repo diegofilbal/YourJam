@@ -18,11 +18,11 @@ using std::getline;
 int main(int argc, char const *argv[]){
     
     bool flag = false;
-    int op1 = 0, op2 = 0, op3 = 0, qtd_pl = 0, posicao;
+    int op1 = 0, op2 = 0, op3 = 0, op4 = 0, qtd_pl = 0, posicao1, posicao2;
     string nome_musica, nome_artista, s_op, nome_playlist;
     Musica musica;
     Lista musicas_sistema;
-    Playlist playlists[MAX_PL], aux_pl;
+    Playlist *playlists = new Playlist[MAX_PL], aux_pl;
 
     //system("clear");
 
@@ -78,14 +78,14 @@ int main(int argc, char const *argv[]){
 
                             if(op3 == 2){
                                 cout << "Digite a posição:" << endl;
-                                cin >> posicao;
+                                cin >> posicao1;
                                 cin.ignore();
 
-                                if(posicao > musicas_sistema.getTamanho() + 1){ // Verifica se a posição é válida
+                                if(posicao1 > musicas_sistema.getTamanho() + 1){ // Verifica se a posição é válida
                                     cout << "Posição inválida!" << endl;
 
                                 }else{
-                                    if(musicas_sistema.inserePos(posicao, musica)){ // Chama a função e verifica se a inserção foi bem sucedida
+                                    if(musicas_sistema.inserePos(posicao1, musica)){ // Chama a função e verifica se a inserção foi bem sucedida
                                         cout << "\nMúsica cadastrada no sistema com sucesso!" << endl;
                                     }else{
                                         cout << "\nErro ao cadastrar música no sistema!" << endl;
@@ -106,7 +106,7 @@ int main(int argc, char const *argv[]){
                                 }
                             }
 
-                            cout << "Pressione qualquer tecla para continuar..." << endl;
+                            cout << "Pressione ENTER para continuar..." << endl;
                             getchar();
                             system("clear");
 
@@ -119,10 +119,10 @@ int main(int argc, char const *argv[]){
                                 musicas_sistema.imprime(); // Imprime a lista de músicas para o usuário
                                 
                                 cout << "\nDigite o número da música que deseja remover do sistema:" << endl;
-                                cin >> posicao;
+                                cin >> posicao1;
                                 cin.ignore();
 
-                                if(posicao >= 1 && posicao <= musicas_sistema.getTamanho()){ // Verifica se a posição digitada é válida
+                                if(posicao1 >= 1 && posicao1 <= musicas_sistema.getTamanho()){ // Verifica se a posição digitada é válida
 
                                 /*
                                 *
@@ -130,7 +130,7 @@ int main(int argc, char const *argv[]){
                                 *
                                 */
 
-                                    musicas_sistema.removePos(posicao); // Remove a música do sistema
+                                    musicas_sistema.removePos(posicao1); // Remove a música do sistema
                                     
                                     cout << "\nMúsica removida com sucesso!" << endl;
                                 }else{
@@ -140,7 +140,7 @@ int main(int argc, char const *argv[]){
                                 cout << "Não há músicas cadastradas no sistema!" << endl;
                             }
                             
-                            cout << "\nPressione qualquer tecla para continuar..." << endl;
+                            cout << "\nPressione ENTER para continuar..." << endl;
                             getchar();
                             system("clear");
 
@@ -154,7 +154,7 @@ int main(int argc, char const *argv[]){
                                 cout << "Não há músicas cadastradas no sistema!" << endl;
                             }
 
-                            cout << "\nPressione qualquer tecla para continuar..." << endl;
+                            cout << "\nPressione ENTER para continuar..." << endl;
                             getchar();
                             system("clear");
 
@@ -164,7 +164,7 @@ int main(int argc, char const *argv[]){
 
                         default: // Opção inválida
                             cout << "\nOpção inválida!" << endl;
-                            cout << "\nPressione qualquer tecla para continuar..." << endl;
+                            cout << "\nPressione ENTER para continuar..." << endl;
                             getchar();
                             system("clear");
                             break;
@@ -196,9 +196,10 @@ int main(int argc, char const *argv[]){
 
                             if(qtd_pl <= MAX_PL){ // Verifica se o número máximo de playlists permitidas já foi atingido
                                 cout << "Digite o nome da playlist que deseja inserir:" << endl;
+                                fflush(stdin);
                                 getline(cin, nome_playlist);
-
-                                flag = 0;
+                                
+                                flag = false;
                                 for(int i = 0; i < qtd_pl; i++){ // Verifica se há uma playlist com o mesmo nome
                                     if(nome_playlist == playlists[i].getNome()){
                                         flag = true;
@@ -208,9 +209,9 @@ int main(int argc, char const *argv[]){
                                 if(!flag){
                                     // A playlist não existe e pode ser adicionada
                                     playlists[qtd_pl].setNome(nome_playlist);
+                                    cout << "\nPlaylist \"" << playlists[qtd_pl].getNome() << "\" adicionada com sucesso!" << endl;
                                     qtd_pl++;
                                     // VERIFICAR SE HÁ MAIS ALGO A FAZER AQUI
-                                    cout << "\nPlaylist \"" << playlists[qtd_pl].getNome() << "\" adicionada com sucesso!" << endl;
                                 }else{
                                     cout << "\nEsta playlist já existe!" << endl;
                                 }
@@ -219,7 +220,7 @@ int main(int argc, char const *argv[]){
                                 cout << "Você já atingiu o limite de playlists!" << endl;
                             }
 
-                            cout << "\nPressione qualquer tecla para continuar..." << endl;
+                            cout << "\nPressione ENTER para continuar..." << endl;
                             getchar();
                             system("clear");
 
@@ -230,22 +231,24 @@ int main(int argc, char const *argv[]){
                             if(qtd_pl > 0){ // Verifica se há playlists cadastradas
 
                                 for(int i = 0; i < qtd_pl; i++){ // Exibe as playlists cadastradas
-                                    cout << i+1 << " - " << playlists[i].getNome() << endl;
+                                    cout << i+1 << ". " << playlists[i].getNome() << endl;
                                 }
 
                                 cout << "\nDigite o número da playlist que deseja remover:" << endl;
-                                cin >> posicao;
+                                cin >> posicao1;
                                 cin.ignore();
 
-                                if(posicao >= 1 && posicao <= qtd_pl){ // Verifica se a posição é válida
+                                if(posicao1 >= 1 && posicao1 <= qtd_pl){ // Verifica se a posição é válida
                                     
-                                    posicao--; // Ajusta a posição para a faixa de valores dos índices (0 -> n-1)
+                                    posicao1--; // Ajusta a posição para a faixa de valores dos índices (0 -> n-1)
 
-                                    for(int i = playlists[posicao].getLista()->getTamanho(); i > 0 ; i--){ // Remove todas as músicas da playlista a ser apagada
-                                        playlists[posicao].removeMusicaPos(i);
+                                    for(int i = playlists[posicao1].getLista()->getTamanho(); i > 0 ; i--){ // Remove todas as músicas da playlista a ser apagada
+                                        playlists[posicao1].removeMusicaPos(i);
                                     }
 
-                                    for(int i = posicao; i < qtd_pl - 1; i++){ // Percorre o array de playlists realocando as posições
+                                    delete playlists[posicao1].getLista();
+
+                                    for(int i = posicao1; i < qtd_pl - 1; i++){ // Percorre o array de playlists realocando as posições
                                         playlists[i].setNome(playlists[i+1].getNome());
                                         playlists[i].setLista(playlists[i+1].getLista());
                                     }
@@ -260,7 +263,7 @@ int main(int argc, char const *argv[]){
                                 cout << "Não há nenhuma playlist cadastrada!" << endl;
                             }
 
-                            cout << "\nPressione qualquer tecla para continuar..." << endl;
+                            cout << "\nPressione ENTER para continuar..." << endl;
                             getchar();
                             system("clear");
 
@@ -276,7 +279,7 @@ int main(int argc, char const *argv[]){
                                 cout << "Não há nenhuma playlist cadastrada!" << endl;
                             }
                             
-                            cout << "\nPressione qualquer tecla para continuar..." << endl;
+                            cout << "\nPressione ENTER para continuar..." << endl;
                             getchar();
                             system("clear");
 
@@ -286,9 +289,6 @@ int main(int argc, char const *argv[]){
 
                         default:
                             cout << "\nOpção inválida!" << endl;
-                            cout << "\nPressione qualquer tecla para continuar..." << endl;
-                            getchar();
-                            system("clear");
                             break;
 
                     }
@@ -306,14 +306,18 @@ int main(int argc, char const *argv[]){
                     }
 
                     do{
-                        cout << "Digite o número da playlist que deseja abrir:" << endl;
+                        cout << "\nDigite o número da playlist que deseja abrir:" << endl;
                         cin >> op3;
                         cin.ignore();
                         if(op3 < 1 || op3 > qtd_pl){
                             cout << "Playlist inválida! Escolha novamente!" << endl;
                         }
                     }while(op3 < 1 || op3 > qtd_pl);
-                    
+
+                    op3--; // Adequa variável ao faixa de números de índices (0 - n-1)
+
+                    system("clear");
+
                     do{
                                         
                         cout << "--------- MÚSICAS DA PLAYLIST ---------" << endl;
@@ -332,6 +336,66 @@ int main(int argc, char const *argv[]){
 
                         switch(op2){
                             case 1: // Adicionar música
+
+                                if(musicas_sistema.getTamanho() > 0){ // Verfica se há músicas no sistema
+
+                                    // Imprime as músicas do sistema
+                                    musicas_sistema.imprime();
+
+                                    cout << "\n\nDigite a posição da música que deseja adicionar em \"" << playlists[op3].getNome() << "\":" << endl;
+                                    cin >> posicao1;
+                                    cin.ignore();
+
+                                    musica = *musicas_sistema.buscaMusicaPos(posicao1 - 1);
+
+                                    if(posicao1 > 0 && posicao1 <= musicas_sistema.getTamanho()){ // Verifica se a posição é válida
+                                        if(playlists[op3].getLista()->buscaMusica(musica) == nullptr){ // Verifica se a música já existe na playlist
+
+                                            cout << "\nDeseja adicionar esta música em uma posição específica de \"" << playlists[op3].getNome() << "\"? Não(1) ou Sim(2)" << endl;
+                                            cin >> op4;
+                                            cin.ignore();
+
+                                            if(op4 == 1){
+                                                // Insere no final
+                                                if(playlists[op3].adicionaMusicaFim(musica)){ // Verifica se a inserção foi bem sucedida
+                                                    cout << "\nMúsica adicionada na playlist com sucesso!" << endl;
+                                                }else{
+                                                    cout << "\nErro ao adicionar música na playlist!" << endl;
+                                                }
+
+                                            }else{
+                                                // Insere em uma posição específica
+                                                
+                                                // IMPRIME AS MUSICAS DA PLAYLIST
+
+                                                cout << "\nDigite a posição em que deseja inserir a música: " << endl;
+                                                cin >> posicao2;
+                                                cin.ignore();
+
+                                                if(posicao2 > 0 && posicao2 <= playlists[op3].getLista()->getTamanho()){ // Verifica se a posição é válida
+                                                    if(playlists[op3].adicionaMusicaPos(posicao2, musica)){ // Verifica se a inserção foi bem sucedida
+                                                        cout << "\nMúsica adicionada na playlist com sucesso!" << endl;
+                                                    }else{
+                                                        cout << "\nErro ao adicionar música na playlist!" << endl;
+                                                    }
+                                                }else{
+                                                    cout << "\nPosição inválida!" << endl;
+                                                }
+                                            }
+                                        }else{
+                                            cout << "\nEsta música já está na playlist!" << endl;
+                                        }
+                                    }else{
+                                        cout << "\nPosição inválida!" << endl;
+                                    }
+                                }else{
+                                    cout << "\nNão há músicas cadastradas no sistema!" << endl;
+                                }
+
+                                cout << "\nPressione ENTER para continuar..." << endl;
+                                getchar();
+                                system("clear");
+
                                 break;
                             
                             case 2: // Remover música
@@ -348,7 +412,7 @@ int main(int argc, char const *argv[]){
                                     cout << "Não há nenhuma música nessa playlist!" << endl;
                                 }
 
-                                cout << "\nPressione qualquer tecla para continuar..." << endl;
+                                cout << "\nPressione ENTER para continuar..." << endl;
                                 getchar();
                                 system("clear");
 
@@ -358,22 +422,20 @@ int main(int argc, char const *argv[]){
                             
                             default:
                                 cout << "\nOpção inválida!" << endl;
-                                cout << "\nPressione qualquer tecla para continuar..." << endl;
+                                cout << "\nPressione ENTER para continuar..." << endl;
                                 getchar();
                                 system("clear");
                                 break;
-
                         }
 
                     }while (op2 != 5);
 
                 }else{
                     cout << "Nenhuma playlist cadastrada!\nAdicione uma playlist em \"Playlists\" no Menu Principal!" << endl;
+                    cout << "\nPressione ENTER para continuar..." << endl;
+                    getchar();
+                    system("clear");
                 }
-
-                cout << "\nPressione qualquer tecla para continuar..." << endl;
-                getchar();
-                system("clear");
 
                 break;
 
@@ -400,7 +462,7 @@ int main(int argc, char const *argv[]){
                     cout << "Nenhuma playlist cadastrada!\nAdicione uma playlist em \"Playlists\" no Menu Principal!" << endl;
                 }
 
-                cout << "\nPressione qualquer tecla para continuar..." << endl;
+                cout << "\nPressione ENTER para continuar..." << endl;
                 getchar();
                 system("clear");
 
@@ -410,15 +472,17 @@ int main(int argc, char const *argv[]){
 
             default: // Opção inválida
                 cout << "\nOpção inválida!" << endl;
-                cout << "\nPressione qualquer tecla para continuar..." << endl;
+                cout << "\nPressione ENTER para continuar..." << endl;
                 getchar();
                 system("clear");
                 break;
         }
 
     }while(op1 != 5);
-    
+
     cout << "Programa encerrado!" << endl << endl;
+
+    delete[] playlists;
 
     return 0;
 }

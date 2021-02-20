@@ -186,7 +186,19 @@ Node* Lista::busca(Musica musica){
 
 // Verifica se uma determinada música está cadastrada no sistema por sua posição (retorna ponteiro de Node)
 Node* Lista::buscaPos(int posicao){
-    // A FAZER
+
+    if(posicao >= 0 && posicao < tamanho){ // Verifica se a posição é válida
+
+        Node *temp = head; // Objeto a receber os elementos da lista durante as iterações do laço
+
+        for(int i = 0; i < posicao; i++){ // Percorre a lista até chegar no elemento desejado
+            temp = temp->next;
+        }
+
+        return temp; // Retorna o ponteiro para o Node
+    }
+
+    // Posição inválida
     return nullptr;
 }
 
@@ -209,7 +221,18 @@ Musica* Lista::buscaMusica(Musica musica){
 
 // Verifica se uma determinada música está cadastrada no sistema por sua posição (retorna ponteiro de Musica)
 Musica* Lista::buscaMusicaPos(int posicao){
-    // A FAZER
+
+    if(posicao >= 0 && posicao < tamanho){ // Verifica se a posição é válida
+
+        Node *temp = head; // Objeto a receber os elementos da lista durante as iterações do laço
+
+        for(int i = 0; i < posicao; i++){ // Percorre a lista até chegar no elemento desejado
+            temp = temp->next;
+        }
+        return temp->musica; // Retorna o ponteiro para a música
+    }
+
+    // Posição inválida
     return nullptr;
 }
 
@@ -222,10 +245,13 @@ void Lista::imprime(){
         std::cout << i+1 << ". " << temp->musica->getArtista() << " - " << temp->musica->getNome() << std:: endl;
         temp = temp->next;
     }
-
 }
 
 // Retorna o tamanho da lista
 int Lista::getTamanho(){
     return tamanho;
+}
+
+void Lista::setTamanho(int tamanho){
+    this->tamanho = tamanho;
 }

@@ -8,6 +8,7 @@
 // Construtor
 Playlist::Playlist(){
     playlist = new Lista;
+    playlist->setTamanho(0);
     tocando = nullptr;
 }
 
@@ -54,7 +55,7 @@ void Playlist::setLista(Lista* lista){
     this->playlist = lista;
 }
 
-void Playlist::setNome(std::string){
+void Playlist::setNome(std::string nome){
     this->nome = nome;
 }
 

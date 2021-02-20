@@ -25,4 +25,5 @@ public:
     Musica* buscaMusicaPos(int posicao);
     void imprime();
     int getTamanho();
+    void setTamanho(int tamanho);
 };
