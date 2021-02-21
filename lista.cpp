@@ -244,7 +244,7 @@ void Lista::imprime(){
     Node *temp = head;
 
     for(int i = 0; i < tamanho; i++){ // Percorre os elementos da lista e imprime um a um
-        std::cout << i+1 << ". " << temp->musica->getArtista() << " - " << temp->musica->getNome() << std:: endl;
+        std::cout << i+1 << ". " << temp->musica->getNome() << " - " << temp->musica->getArtista() << std:: endl;
         temp = temp->next;
     }
 }
