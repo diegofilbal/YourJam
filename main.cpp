@@ -28,14 +28,18 @@ int main(int argc, char const *argv[]){
 
     // Apresentação do menu principal do programa
     do{
-        cout << "------------ MENU PRINCIPAL ------------" << endl;
-        cout << "1 - Músicas do sistema" << endl;
-        cout << "2 - Playlists" << endl;
-        cout << "3 - Músicas das playlists" << endl;
-        cout << "4 - Tocar música" << endl;
-        cout << "5 - Sair" << endl;
-        cout << "----------------------------------------" << endl;
-        cout << "Digite a opção: ";
+
+        cout << "+---------------------------+" << endl;
+        cout << "|      MENU PRINCIPAL       |" << endl;
+        cout << "+---------------------------+" << endl;
+        cout << "| 1 - Músicas do sistema    |" << endl;
+        cout << "| 2 - Playlists             |" << endl;
+        cout << "| 3 - Músicas das playlists |" << endl;
+        cout << "| 4 - Tocar música          |" << endl;
+        cout << "| 5 - Sair                  |" << endl;
+        cout << "+---------------------------+" << endl;
+
+        cout << "Digite uma opção: ";
         getline(cin, s_op);
         std::stringstream op(s_op);
         op >> op1;
@@ -47,14 +51,17 @@ int main(int argc, char const *argv[]){
             case 1: // Menu de musicas do sistema
                 
                 do{
-                    
-                    cout << "---------- MUSICAS DO SISTEMA ----------" << endl;
-                    cout << "1 - Adicionar música" << endl;
-                    cout << "2 - Remover música" << endl;
-                    cout << "3 - Exibir músicas cadastradas" << endl;
-                    cout << "4 - Voltar" << endl;
-                    cout << "----------------------------------------" << endl;
-                    cout << "Digite a opção: ";
+
+                    cout << "+--------------------------------+ " << endl;
+                    cout << "|       MUSICAS DO SISTEMA       |" << endl;
+                    cout << "+--------------------------------+" << endl;
+                    cout << "| 1 - Adicionar música           |" << endl;
+                    cout << "| 2 - Remover música             |" << endl;
+                    cout << "| 3 - Exibir músicas cadastradas |" << endl;
+                    cout << "| 4 - Voltar                     |" << endl;
+                    cout << "+--------------------------------+" << endl;
+
+                    cout << "Digite uma opção: ";
                     getline(cin, s_op);
                     std::stringstream op(s_op);
                     op >> op2;
@@ -194,14 +201,17 @@ int main(int argc, char const *argv[]){
             case 2: // Menu de playlists
                                 
                 do{
-                
-                    cout << "-------------- PLAYLISTS ---------------" << endl;
-                    cout << "1 - Adicionar playlist" << endl;
-                    cout << "2 - Remover playlist" << endl;
-                    cout << "3 - Exibir playlists" << endl;
-                    cout << "4 - Voltar" << endl;
-                    cout << "----------------------------------------" << endl;
-                    cout << "Digite a opção: ";
+
+                    cout << "+------------------------+" << endl;
+                    cout << "|       PLAYLISTS        |" << endl;
+                    cout << "+------------------------+" << endl;
+                    cout << "| 1 - Adicionar playlist |" << endl;
+                    cout << "| 2 - Remover playlist   |" << endl;
+                    cout << "| 3 - Exibir playlists   |" << endl;
+                    cout << "| 4 - Voltar             |" << endl;
+                    cout << "+------------------------+" << endl;
+
+                    cout << "Digite uma opção: ";
                     getline(cin, s_op);
                     std::stringstream op(s_op);
                     op >> op2;
@@ -335,15 +345,18 @@ int main(int argc, char const *argv[]){
                     system("clear");
 
                     do{
-                                        
-                        cout << "--------- MÚSICAS DA PLAYLIST ---------" << endl;
-                        cout << "1 - Adicionar música" << endl;
-                        cout << "2 - Remover música" << endl;
-                        cout << "3 - Mover música" << endl;
-                        cout << "4 - Exibir músicas da playlist" << endl;
-                        cout << "5 - Voltar" << endl;
-                        cout << "----------------------------------------" << endl;
-                        cout << "Digite a opção: ";
+
+                        cout << "+--------------------------------+" << endl;
+                        cout << "|     MÚSICAS DAS PLAYLISTS      |" << endl;
+                        cout << "+--------------------------------+" << endl;
+                        cout << "| 1 - Adicionar música           |" << endl;
+                        cout << "| 2 - Remover música             |" << endl;
+                        cout << "| 3 - Mover música               |" << endl;
+                        cout << "| 4 - Exibir músicas da playlist |" << endl;
+                        cout << "| 5 - Voltar                     |" << endl;
+                        cout << "+--------------------------------+" << endl;
+
+                        cout << "Digite uma opção: ";
                         getline(cin, s_op);
                         std::stringstream op(s_op);
                         op >> op2;
@@ -573,7 +586,7 @@ int main(int argc, char const *argv[]){
                     }
 
                 }else{
-                    cout << "Nenhuma playlist cadastrada!\nAdicione uma playlist em \"Playlists\" no Menu Principal!" << endl;
+                    cout << "Nenhuma playlist cadastrada!\nAdicione uma playlist em \"Playlists\" no Menu Principal!" << endl << endl;
                 }
 
                 cout << "Pressione ENTER para continuar..." << endl;
