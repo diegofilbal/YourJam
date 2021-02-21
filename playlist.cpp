@@ -8,7 +8,7 @@
 // Construtor
 Playlist::Playlist(){
     playlist = new Lista;
-    tocando = 0;
+    proxima = 0;
 }
 
 // Destrutor
@@ -41,6 +41,7 @@ void Playlist::moveMusica(int pos_inicial, int pos_final){
 
     Musica musica;// Variável a receber as informações da musica a ser movida
 
+    // Copia as informações da música a ser movida
     musica.setNome(playlist->buscaMusicaPos(pos_inicial - 1)->getNome());
     musica.setArtista(playlist->buscaMusicaPos(pos_inicial - 1)->getArtista());
 
@@ -50,26 +51,24 @@ void Playlist::moveMusica(int pos_inicial, int pos_final){
 
 // Imprime as músicas da playlist recursivamente
 void Playlist::imprime(Node* node, int contador){
-    if(node == nullptr){
+    if(node == nullptr){ // Verifica se a lista já chegou ao fim
         return;
     }
     std::cout << contador << ". " << node->musica->getNome() << " - " << node->musica->getArtista() << std::endl;
-    imprime(node->next, contador + 1);
+    imprime(node->next, contador + 1); // Faz a chamada recursiva para a immressão do próximo node 
 }
 
 // Retorna a próxima música a ser tocada
 Musica* Playlist::proxMusica(){
 
-    Node *node = playlist->buscaPos(tocando);
+    Node *node = playlist->buscaPos(proxima); // Recebe o node que armazena a próxima música a ser tocada
 
-    //playlist->getTamanho()
-
-    if(node != nullptr){
-        tocando++;
-        return node->musica;
+    if(node != nullptr){ // Verifica se ainda há música para tocar
+        proxima++;
+        return node->musica; // Retorna a música 
     }
 
-    return nullptr;
+    return nullptr; // A reprodução das músicas chegou ao fim
 }
 
 // Retorna a playlist
@@ -80,17 +79,17 @@ Lista* Playlist::getLista(){
 // Descarta a lista antiga e faz uma cópia da lista recebida
 void Playlist::setLista(Lista* lista){
 
-    int tamanho_pl = this->playlist->getTamanho();
+    int tamanho_pl = playlist->getTamanho(); // Recebe o tamanho da playlist a ser redefinida
 
     for (int i = 0; i < tamanho_pl; i++){ // Remove todos os elementos antigos
-        this->playlist->removePos(0);
+        playlist->removePos(0);
     }
 
     if(lista != nullptr){ // Verifica se o ponteiro não é nulo
-        tamanho_pl = lista->getTamanho();
+        tamanho_pl = lista->getTamanho(); // Recebe o tamanho da nova lista
 
         for (int i = 0; i < tamanho_pl; i++){ // Insere todos os elementos da nova lista na lista original
-            this->playlist->insereFim(*lista->buscaMusicaPos(i));
+            playlist->insereFim(*lista->buscaMusicaPos(i));
         }
     }    
 }

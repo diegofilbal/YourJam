@@ -39,8 +39,11 @@ bool Lista::insereInicio(Musica musica){
         Node *temp = new Node;
         temp->musica = new Musica;
 
+        // Copia informações da música para temp
         temp->musica->setNome(musica.getNome());
         temp->musica->setArtista(musica.getArtista());
+
+        // Atualiza o head
         temp->next = head;
         head = temp;
 
@@ -64,23 +67,33 @@ bool Lista::insereFim(Musica musica){
         // A música não está cadastrada no sistema
         
         if(head == nullptr){ // Caso a lista esteja vazia
+
             head = new Node;
             head->musica = new Musica;
+
+            // Copia informações da música para o head
             head->musica->setNome(musica.getNome());
             head->musica->setArtista(musica.getArtista());
             head->next = nullptr;
-            tail = head;
-            tamanho++;
+
+            tail = head; // Atualiza o tail
+            tamanho++; // Incrementa o tamanho da lista
 
         }else{ // Caso a lista não esteja vazia
+
             Node *temp = new Node;
             temp->musica = new Musica;
+
+            // Copia informações da música para temp
             temp->musica->setNome(musica.getNome());
             temp->musica->setArtista(musica.getArtista());
             temp->next = nullptr;
+
+            // Atualiza o tail
             tail->next = temp;
             tail = temp;
-            tamanho++;
+
+            tamanho++; // Incrementa o tamanho da lista
         }
 
         return true; // Retorna código de sucesso
@@ -110,6 +123,7 @@ bool Lista::inserePos(int posicao, Musica musica){
             // A inserção é no meio da lista 
 
             if(busca(musica) == nullptr){ // Verifica se a música já está cadastrada
+                // A música não está cadastrada
 
                 Node* temp = new Node;
                 temp->musica = new Musica;
@@ -124,11 +138,13 @@ bool Lista::inserePos(int posicao, Musica musica){
                     contador++;
                 }
 
+                // Copia informações da música para tempo
                 temp->musica->setNome(musica.getNome());
                 temp->musica->setArtista(musica.getArtista());
-                temp->next = atual;
-                anterior->next = temp;
-                tamanho++;
+
+                temp->next = atual; // Define o next da posição anterior
+                anterior->next = temp; // Atualiza o next da posição anterior
+                tamanho++; // Incrementa o tamanho
 
                 return true; // Retrona código de sucesso
                 
@@ -155,14 +171,13 @@ void Lista::removePos(int posicao){
     }else{
         if(atual == tail){ // Verifica se o elemento a ser removida é o último
             anterior->next = nullptr;
-            tail = anterior;
+            tail = anterior; // Atualiza o tail
         }else{
-            anterior->next=atual->next;
+            anterior->next = atual->next;
         }
     }
     
-    // Decrementa o tamanho da lista
-    tamanho--;
+    tamanho--; // Decrementa o tamanho da lista
 
     // Libera os espaços alocados para a Música e para o Node
     delete atual->musica;
@@ -200,8 +215,7 @@ Node* Lista::buscaPos(int posicao){
         return temp; // Retorna o ponteiro para o Node
     }
 
-    // Posição inválida
-    return nullptr;
+    return nullptr; // Posição inválida
 }
 
 // Verifica se uma determinada música está cadastrada no sistema (retorna ponteiro de Musica)
@@ -234,8 +248,7 @@ Musica* Lista::buscaMusicaPos(int posicao){
         return temp->musica; // Retorna o ponteiro para a música
     }
 
-    // Posição inválida
-    return nullptr;
+    return nullptr; // Posição inválida
 }
 
 // Imprime todas as músicas da lista
