@@ -1,31 +1,38 @@
 # Compila todos os arquivos e gera o executável
-all: musica.o node.o lista.o playlist.o main.o
-	g++ musica.o node.o lista.o playlist.o main.o -o main
+all: create_dir main
+
+# Cria pasta para armazenar os arquivos objetos
+create_dir:
+	mkdir -p bin
 
 # Compila o arquivo musica.cpp e gera o arquivo objeto musica.o
-musica.o: musica.cpp
-	g++ -O0 -g -Wall -ansi -pedantic -std=c++11 -c musica.cpp
+bin/musica.o: src/musica.cpp
+	g++ src/musica.cpp -Iinclude -O0 -g -Wall -ansi -pedantic -std=c++11 -c -o bin/musica.o
 
 # Compila o arquivo node.cpp e gera o arquivo objeto node.o
-node.o: node.cpp musica.o
-	g++ -O0 -g -Wall -ansi -pedantic -std=c++11 -c node.cpp
+bin/node.o: src/node.cpp bin/musica.o
+	g++ src/node.cpp -Iinclude -O0 -g -Wall -ansi -pedantic -std=c++11 -c -o bin/node.o
 
 # Compila o arquivo lista.cpp e gera o arquivo objeto lista.o
-lista.o: lista.cpp musica.o node.o
-	g++ -O0 -g -Wall -ansi -pedantic -std=c++11 -c lista.cpp
+bin/lista.o: src/lista.cpp bin/musica.o bin/node.o
+	g++ src/lista.cpp -Iinclude -O0 -g -Wall -ansi -pedantic -std=c++11 -c -o bin/lista.o
 
 # Compila o arquivo playlist.cpp e gera o arquivo objeto playlist.o
-playlist.o: playlist.cpp musica.o node.o lista.o
-	g++ -O0 -g -Wall -ansi -pedantic -std=c++11 -c playlist.cpp
+bin/playlist.o: src/playlist.cpp bin/musica.o bin/node.o bin/lista.o
+	g++ src/playlist.cpp -Iinclude -O0 -g -Wall -ansi -pedantic -std=c++11 -c -o bin/playlist.o
 
 # Compila o arquivo main.cpp, gera o arquivo objeto main.o e o executável
-main.o: main.cpp musica.o node.o lista.o playlist.o
-	g++ -O0 -g -Wall -ansi -pedantic -std=c++11 -c main.cpp
+bin/main.o: src/main.cpp bin/musica.o bin/node.o bin/lista.o bin/playlist.o
+	g++ src/main.cpp -Iinclude -O0 -g -Wall -ansi -pedantic -std=c++11 -c -o bin/main.o
+
+# Cria o arquivo executável
+main: bin/musica.o bin/node.o bin/lista.o bin/playlist.o bin/main.o
+	g++ bin/*.o -Iinclude -O0 -g -Wall -ansi -pedantic -std=c++11 -o main
 
 # Executa o programa
-run: musica.o node.o lista.o playlist.o main.o all
+run: all
 	./main
 
-# Apaga o executável e os arquivos objetos
+# Apaga a pasta de arquivos objetos e o executável
 clean:
-	rm -rf *.o main
+	rm -rf bin main
