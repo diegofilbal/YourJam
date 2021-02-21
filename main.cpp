@@ -20,7 +20,7 @@ int main(int argc, char const *argv[]){
     bool flag = false;
     int op1 = 0, op2 = 0, op3 = 0, op4 = 0, qtd_pl = 0, posicao1, posicao2;
     string nome_musica, nome_artista, s_op, nome_playlist;
-    Musica musica;
+    Musica musica, *prox_musica;
     Lista *musicas_sistema = new Lista;
     Playlist *playlists = new Playlist[MAX_PL], aux_pl;
 
@@ -136,7 +136,7 @@ int main(int argc, char const *argv[]){
                                         if(playlists[i].getLista()->buscaMusica(musica) != nullptr){
                                             for(int j = 0; j < playlists[i].getLista()->getTamanho(); j++){ // Percorre os elementos da playlist para achar a posição da música a ser apagada
                                                 if(playlists[i].getLista()->buscaMusicaPos(j)->getNome() == musica.getNome() && playlists[i].getLista()->buscaMusicaPos(j)->getArtista() == musica.getArtista()){
-                                                    cout << "\n\"" << playlists[i].getLista()->buscaMusicaPos(j)->getNome() << "\" de " << playlists[i].getLista()->buscaMusicaPos(j)->getArtista() << " estava na posição " << j+1 <<  " da playlist \"" << playlists[i].getNome() << " e foi removida!";
+                                                    cout << "\nA música " << playlists[i].getLista()->buscaMusicaPos(j)->getNome() << " de " << playlists[i].getLista()->buscaMusicaPos(j)->getArtista() << " estava na posição " << j+1 <<  " da playlist " << playlists[i].getNome() << " e foi removida!";
                                                     playlists[i].removeMusicaPos(j + 1); // Apaga a música da playlist
                                                 }
                                             }
@@ -226,7 +226,7 @@ int main(int argc, char const *argv[]){
                                 if(!flag){
                                     // A playlist não existe e pode ser adicionada
                                     playlists[qtd_pl].setNome(nome_playlist);
-                                    cout << "\nPlaylist \"" << playlists[qtd_pl].getNome() << "\" adicionada com sucesso!" << endl;
+                                    cout << "\nPlaylist " << playlists[qtd_pl].getNome() << " adicionada com sucesso!" << endl;
                                     qtd_pl++;
 
                                 }else{
@@ -287,7 +287,7 @@ int main(int argc, char const *argv[]){
                         case 3: // Exibe as playlists cadastradas
 
                             if(qtd_pl > 0){
-                                for(int i = 0; i < qtd_pl; i++){
+                                for(int i = 0; i < qtd_pl; i++){ // Imprime o nome das playlists
                                     cout << i+1 << ". " << playlists[i].getNome() << endl;
                                 }
                                 cout << endl;
@@ -317,7 +317,7 @@ int main(int argc, char const *argv[]){
 
                 if(qtd_pl > 0){ // Verifica se há playlists cadastradas
                 
-                    for(int i = 0; i < qtd_pl; i++){
+                    for(int i = 0; i < qtd_pl; i++){ // Imprime o nome das playlists
                         cout << i+1 << " - " << playlists[i].getNome() << endl;
                     }
 
@@ -358,7 +358,7 @@ int main(int argc, char const *argv[]){
                                     // Imprime as músicas do sistema
                                     musicas_sistema->imprime();
 
-                                    cout << "\n\nDigite a posição da música que deseja adicionar em \"" << playlists[op3].getNome() << "\":" << endl;
+                                    cout << "\n\nDigite a posição da música que deseja adicionar em " << playlists[op3].getNome() << ":" << endl;
                                     cin >> posicao1;
                                     cin.ignore();
 
@@ -368,7 +368,7 @@ int main(int argc, char const *argv[]){
 
                                         if(playlists[op3].getLista()->buscaMusica(musica) == nullptr){ // Verifica se a música já existe na playlist
 
-                                            cout << "\nDeseja adicionar esta música em uma posição específica de \"" << playlists[op3].getNome() << "\"? Não(1) ou Sim(2)" << endl;
+                                            cout << "\nDeseja adicionar esta música em uma posição específica de " << playlists[op3].getNome() << "? Não(1) ou Sim(2)" << endl;
                                             cin >> op4;
                                             cin.ignore();
 
@@ -540,26 +540,43 @@ int main(int argc, char const *argv[]){
             
                 if(qtd_pl > 0){ // Verifica se há playlists cadastradas
                 
-                    for(int i = 0; i < qtd_pl; i++){
+                    for(int i = 0; i < qtd_pl; i++){ // Imprime o nome das playlists
                         cout << i+1 << " - " << playlists[i].getNome() << endl;
                     }
 
                     do{
-                        cout << "\n\nDigite o número da playlist que deseja reproduzir:" << endl;
+                        cout << "\nDigite o número da playlist que deseja reproduzir:" << endl;
                         cin >> op3;
                         cin.ignore();
                         if(op3 < 1 || op3 > qtd_pl){
                             cout << "\nPlaylist inválida! Escolha novamente!";
                         }
-                    }while(op3 < 1 || op3 > qtd_pl);
+                    }while(op3 < 1 || op3 > qtd_pl); // Espera o usuário digitar uma posição válida
 
-                    //CONTINUAR CÓDIGO
+                    op3--; // Adequa variável ao faixa de números de índices (0 - n-1)
+
+                    if(playlists[op3].getLista()->getTamanho() > 0){ // Verifica se a playlist tem músicas cadastradas
+
+                        system("clear");
+
+                        prox_musica = playlists[op3].proxMusica(); // Chama a função e recebe o ponteiro de música
+
+                        if(prox_musica != nullptr){ // Verifica se a reprodução das músicas já chegou ao fim
+                            cout << "Tocando " << prox_musica->getNome() << " - " << prox_musica->getArtista() << " da playlist " << playlists[op3].getNome() << "!" << endl << endl;
+
+                        }else{
+                            cout << "Você terminou de escutar essa playlist!" << endl << endl;
+                        }
+
+                    }else{
+                        cout << "\nNão há nenhuma música nessa playlist para tocar!" << endl;
+                    }
 
                 }else{
                     cout << "Nenhuma playlist cadastrada!\nAdicione uma playlist em \"Playlists\" no Menu Principal!" << endl;
                 }
 
-                cout << "Pressione ENTER para continuar..." << endl << endl;
+                cout << "Pressione ENTER para continuar..." << endl;
                 getchar();
                 system("clear");
 

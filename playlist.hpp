@@ -10,7 +10,7 @@ private:
     // Atributos da playlist
     std::string nome;
     Lista* playlist;
-    Node* tocando;
+    int tocando;
 
 public:
     // Métodos da playlist

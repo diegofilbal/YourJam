@@ -8,7 +8,7 @@
 // Construtor
 Playlist::Playlist(){
     playlist = new Lista;
-    tocando = nullptr;
+    tocando = 0;
 }
 
 // Destrutor
@@ -53,8 +53,23 @@ void Playlist::imprime(Node* node, int contador){
     if(node == nullptr){
         return;
     }
-    std::cout << contador << ". " << node->musica->getArtista() << " - " << node->musica->getNome() << std::endl;
+    std::cout << contador << ". " << node->musica->getNome() << " - " << node->musica->getArtista() << std::endl;
     imprime(node->next, contador + 1);
+}
+
+// Retorna a próxima música a ser tocada
+Musica* Playlist::proxMusica(){
+
+    Node *node = playlist->buscaPos(tocando);
+
+    //playlist->getTamanho()
+
+    if(node != nullptr){
+        tocando++;
+        return node->musica;
+    }
+
+    return nullptr;
 }
 
 // Retorna a playlist
