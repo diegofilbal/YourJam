@@ -7,7 +7,7 @@ Com o terminal aberto no diretório em que deseja baixar o projeto, digite:
 
     $ git clone https://github.com/diegofilbal/YourJam.git
 
-Entre na no diretório do projeto com:
+Entre no diretório do projeto com:
 
     $ cd YourJam
 
