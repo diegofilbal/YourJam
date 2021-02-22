@@ -1,22 +1,19 @@
-# Musicália
-Bem vindo ao *Musicália*, um sistema de gerenciamento de músicas e playlists implementado em C++!
+# YourJam
+Bem vindo ao *YourJam*, um sistema de gerenciamento de músicas e playlists implementado em C++!
 
----
 
-## Executando
+## Instalando e executando
 Com o terminal aberto no diretório em que deseja baixar o projeto, digite:
 
-    $ git clone https://github.com/diegofilbal/Musicalia.git
+    $ git clone https://github.com/diegofilbal/YourJam.git
 
 Entre na no diretório do projeto com:
 
-    $ cd Musicalia
+    $ cd YourJam
 
 E para compilar e executar o programa, digite:
 
     $ make run
-
----
 
 ## Como usar o sistema
 
@@ -141,8 +138,6 @@ A lista de músicas cadastradas aparecerá de forma enumerada na tela da seguint
     3. After Hours - The Weeknd
 
     Pressione ENTER para continuar...
-
----
 
 ### Playlists
 Para entrar no menu de playlists, digite **2** no Menu principal:
@@ -390,8 +385,6 @@ Logo em seguida, a lista de músicas da playlist aparecerá na tela:
 
     Pressione ENTER para continuar...
 
----
-
 ### Tocar música
 Para tocar uma música, escolha a opção **4** do menu principal:
 
@@ -420,7 +413,6 @@ Logo após, música que está sendo reproduzida no momento é informada na tela:
 
 É possível tocar músicas de uma playlist até que a última música seja reproduzida.
 
----
 
 ### Limitações e dificuldades
 
