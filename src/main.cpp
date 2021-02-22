@@ -524,6 +524,8 @@ int main(int argc, char const *argv[]){
 
                                                 playlists[posicao_pl].moveMusica(posicao1, posicao2); // Move a música de lugar
 
+                                                system("clear");
+
                                                 cout << "\nMúsica movida com sucesso!" << endl << endl;
 
                                                 playlists[posicao_pl].imprime(playlists[posicao_pl].getLista()->buscaPos(0), 1); // Imprime nova organização das músicas
