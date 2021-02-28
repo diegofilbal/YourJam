@@ -104,6 +104,21 @@ bool Lista::insereFim(Musica musica){
     }
 }
 
+// Insere uma lista de músicas no sistema
+bool Lista::insereFim(Lista &lista_musicas){
+
+    if(lista_musicas.getTamanho() > 0){ // Verifica se a lista não está vazia
+
+        for(int i = 0; i < lista_musicas.getTamanho(); i++){ // Percorre cada música da lista e a adiciona ao sistema
+            if(!insereFim(*lista_musicas.buscaMusicaPos(i))){ // Informa que a música atual já estava cadastrada no sistema
+                std::cout << "A música " << lista_musicas.buscaMusicaPos(i)->getNome() << " de " << lista_musicas.buscaMusicaPos(i)->getArtista() << " já está cadastrada no sistema!" << std::endl;
+            }
+        }
+        return true; // Retorna código de sucesso
+    }
+    return false; // Lista vazia, retorna código de erro
+}
+
 // Insere uma música no sistema em uma posição específica
 bool Lista::inserePos(int posicao, Musica musica){
 
@@ -161,9 +176,9 @@ void Lista::removePos(int posicao){
     Node *atual = head;
     Node *anterior = nullptr;
 
-    for(int i = 1; i < posicao; i++){ // Percorre a lista até chegar no elemento a ser removida
-      anterior=atual;
-      atual=atual->next;
+    for(int i = 1; i < posicao; i++){ // Percorre a lista até chegar no elemento a ser removido
+      anterior = atual;
+      atual = atual->next;
     }
 
     if(atual == head){ // Verifica se o elemento a ser removida é o primeiro
