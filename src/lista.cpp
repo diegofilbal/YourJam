@@ -171,7 +171,7 @@ bool Lista::inserePos(int posicao, Musica musica){
 }
 
 // Remove uma música do sistema pela posição
-void Lista::removePos(int posicao){
+void Lista::remove(int posicao){
 
     Node *atual = head;
     Node *anterior = nullptr;
@@ -197,6 +197,47 @@ void Lista::removePos(int posicao){
     // Libera os espaços alocados para a Música e para o Node
     delete atual->musica;
     delete atual;
+}
+
+// Remove uma lista de músicas do sistema
+void Lista::remove(Lista &lista_musicas){
+
+    if(tamanho > 0 && lista_musicas.tamanho > 0){ //  Verifica as listas não estão vazias
+        for(int i = 0; i < lista_musicas.tamanho; i++){ // Percorre a lista recebida
+            if(buscaMusica(*lista_musicas.buscaMusicaPos(i)) != nullptr){ // Verifica se a música atual da lista recebida está de fato na lista principal
+                
+                Node* temp = head; // Variável a receber cada node da lista principal no laço
+                int indice = 1; // Variável para guardar a posição da música a ser removida
+
+                while(true){ // Laço para descobrir a posição da música na lista 
+                    if(temp->musica->getNome() == lista_musicas.buscaMusicaPos(i)->getNome() && temp->musica->getArtista() == lista_musicas.buscaMusicaPos(i)->getArtista()){ // Verifica se as músicas são iguais
+                        break; // Interrompe o laço
+                    }
+                    temp = temp->next; // Avança na lista
+                    indice++; // Incrementa o índice
+                }
+
+                remove(indice); // Remove a música da lista principal
+            }
+        }
+    }
+
+    // Versão alternativa
+
+    //     for(int i = tamanho - 1; i >= 0 ; i--){
+    //         for(int j = 0; j < lista_musicas.tamanho; j++){
+    //             std::cout << "\nVerificando se " << buscaMusicaPos(i)->getNome() << " - " << buscaMusicaPos(i)->getArtista() << "(sistema  pos " << i << ") e " << lista_musicas.buscaMusicaPos(j)->getNome() << " - " << lista_musicas.buscaMusicaPos(j)->getArtista() << "(lista pos " << j << ") são iguais..." << std::endl;
+
+    //             if(buscaMusicaPos(i)->getNome() == lista_musicas.buscaMusicaPos(j)->getNome() && buscaMusicaPos(i)->getArtista() == lista_musicas.buscaMusicaPos(j)->getArtista()){
+    //                 std::cout << "\tSão iguais!" << std::endl;
+    //                 remove(i+1);
+    //                 std::cout << "morreu?" << std::endl;
+    //                 break;
+    //             }else{
+    //                 std::cout << "\tNão são iguais!" << std::endl;
+    //             }
+    //         }
+    //     }
 }
 
 // Verifica se uma determinada música está cadastrada no sistema (retorna ponteiro de Node)

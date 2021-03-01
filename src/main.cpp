@@ -165,7 +165,7 @@ int main(int argc, char const *argv[]){
                         
                         case 2: // Adicionar lista de música
                             
-                            // Monta e insere as músicas na lista
+                            // Monta e insere as músicas na lista temporária
                             musica.setNome("Pra Animar o Bar");
                             musica.setArtista("Cícero");
                             lista_temp.insereFim(musica);
@@ -178,15 +178,19 @@ int main(int argc, char const *argv[]){
                             musica.setArtista("Giveon");
                             lista_temp.insereFim(musica);
 
+                            cout << "Lista de músicas a serem inseridas no sistema:" << endl;
+                            lista_temp.imprime();
+                            cout << endl;
+
                             if(musicas_sistema->insereFim(lista_temp)){
-                                cout << "\nMúsicas cadastradas com sucesso!" << endl << endl;
+                                cout << "\nMúsicas cadastradas com sucesso!" << endl;
                             }
                             else{
                                 cout << "\nErro ao cadastrar lista de músicas" << endl;
                             }
 
                             for(int i = lista_temp.getTamanho(); i > 0; i--){
-                                lista_temp.removePos(i);
+                                lista_temp.remove(i);
                             }
 
                             cout << "Pressione ENTER para continuar..." << endl;
@@ -220,7 +224,7 @@ int main(int argc, char const *argv[]){
                                         }
                                     }
 
-                                    musicas_sistema->removePos(posicao1); // Remove a música do sistema
+                                    musicas_sistema->remove(posicao1); // Remove a música do sistema
                                     
                                     cout << "\nMúsica removida do sistema com sucesso!" << endl;
 
@@ -232,6 +236,59 @@ int main(int argc, char const *argv[]){
                                 cout << "Não há músicas cadastradas no sistema!" << endl << endl;
                             }
                             
+                            cout << "Pressione ENTER para continuar..." << endl;
+                            getchar();
+                            system("clear");
+
+                            break;
+                        
+                        case 4: // Remove lista de músicas
+
+                            // Monta e insere as músicas na lista temporária
+                            musica.setNome("Heartbreak Anniversary");
+                            musica.setArtista("Giveon");
+                            lista_temp.insereFim(musica);
+
+                            musica.setNome("Pra Animar o Bar");
+                            musica.setArtista("Cícero");
+                            lista_temp.insereFim(musica);
+
+                            musica.setNome("What's Going On");
+                            musica.setArtista("Marvin Gaye");
+                            lista_temp.insereFim(musica);
+
+                            cout << "Lista de músicas a serem removidas do sistema:" << endl;
+                            lista_temp.imprime();
+                            cout << endl;
+
+
+                            for(int i = 0; i < lista_temp.getTamanho(); i++){ // Percorre a lista de músicas a serem remmovidas
+
+                                musica = *lista_temp.buscaMusicaPos(i); // Recebe as músicas da lista temporária
+                                
+                                for(int j = 0; j < qtd_pl; j++){ // Laço para percorrer o array de playlists procurando por playlists com a música a ser apagada
+                                    if(playlists[j].getLista()->buscaMusica(musica) != nullptr){
+                                        for(int k = 0; k < playlists[j].getLista()->getTamanho(); k++){ // Percorre os elementos da playlist para achar a posição da música a ser apagada
+                                            if(playlists[j].getLista()->buscaMusicaPos(k)->getNome() == musica.getNome() && playlists[j].getLista()->buscaMusicaPos(k)->getArtista() == musica.getArtista()){
+                                                if(playlists[j].removeMusicaPos(k)){ // Verifica se a remoção foi bem sucedida
+                                                    cout << "A música " << musica.getNome() << " de " << musica.getArtista() << " estava na playlist " << playlists[j].getNome() << " e foi removida!" << endl;
+                                                
+                                                }else{
+                                                    cout << "Erro ao remover a música " << musica.getNome() << " de " << musica.getArtista() << " da playlist " << playlists[j].getNome() << "!" << endl;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                cout << endl;
+                            }
+
+                            cout << "Músicas removidas com sucesso" << endl;
+
+                            for(int i = lista_temp.getTamanho(); i > 0; i--){
+                                lista_temp.remove(i);
+                            }
+
                             cout << "Pressione ENTER para continuar..." << endl;
                             getchar();
                             system("clear");
