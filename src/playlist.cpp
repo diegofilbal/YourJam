@@ -32,8 +32,8 @@ bool Playlist::adicionaMusicaPos(int pos, Musica musica){
 }
 
 // Remove uma música em uma posição específica da playlist
-void Playlist::removeMusicaPos(int posicao){
-    playlist->remove(posicao); // Retorna código retornado pela função da classe Lista
+bool Playlist::removeMusicaPos(int posicao){
+    return playlist->remove(posicao); // Retorna código retornado pela função da classe Lista
 }
 
 // Move uma música dentro da playlist
@@ -42,8 +42,8 @@ void Playlist::moveMusica(int pos_inicial, int pos_final){
     Musica musica;// Variável a receber as informações da musica a ser movida
 
     // Copia as informações da música a ser movida
-    musica.setNome(playlist->buscaMusicaPos(pos_inicial - 1)->getNome());
-    musica.setArtista(playlist->buscaMusicaPos(pos_inicial - 1)->getArtista());
+    musica.setNome(playlist->buscaMusicaPos(pos_inicial)->getNome());
+    musica.setArtista(playlist->buscaMusicaPos(pos_inicial)->getArtista());
 
     playlist->remove(pos_inicial); // Remove a música da posição atual
     playlist->inserePos(pos_final, musica); // Insere a música na posição para qual o usuário deseja movê-la

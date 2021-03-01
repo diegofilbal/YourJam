@@ -19,8 +19,8 @@ public:
     bool insereFim(Musica musica);
     bool insereFim(Lista &lista);
     bool inserePos(int posicao, Musica musica);
-    void remove(int posicao);
-    void remove(Lista &lista);
+    bool remove(int posicao);
+    bool remove(Lista &lista);
     Node* busca(Musica musica);
     Node* buscaPos(int posicao);
     Musica* buscaMusica(Musica musica);

@@ -135,7 +135,7 @@ int main(int argc, char const *argv[]){
                                     cout << "\nPosição inválida!" << endl;
 
                                 }else{
-                                    if(musicas_sistema->inserePos(posicao1, musica)){ // Chama a função e verifica se a inserção foi bem sucedida
+                                    if(musicas_sistema->inserePos(posicao1 - 1, musica)){ // Chama a função e verifica se a inserção foi bem sucedida
                                         cout << "\nMúsica cadastrada no sistema com sucesso!" << endl;
 
                                     }else{
@@ -182,14 +182,14 @@ int main(int argc, char const *argv[]){
                             lista_temp.imprime();
                             cout << endl;
 
-                            if(musicas_sistema->insereFim(lista_temp)){
+                            if(musicas_sistema->insereFim(lista_temp)){ // Verifica se a inserção foi bem sucedida
                                 cout << "\nMúsicas cadastradas com sucesso!" << endl;
                             }
                             else{
                                 cout << "\nErro ao cadastrar lista de músicas" << endl;
                             }
 
-                            for(int i = lista_temp.getTamanho(); i > 0; i--){
+                            for(int i = lista_temp.getTamanho() - 1; i >= 0; i--){ // Limpa a lista temporária
                                 lista_temp.remove(i);
                             }
 
@@ -217,16 +217,23 @@ int main(int argc, char const *argv[]){
                                         if(playlists[i].getLista()->buscaMusica(musica) != nullptr){
                                             for(int j = 0; j < playlists[i].getLista()->getTamanho(); j++){ // Percorre os elementos da playlist para achar a posição da música a ser apagada
                                                 if(playlists[i].getLista()->buscaMusicaPos(j)->getNome() == musica.getNome() && playlists[i].getLista()->buscaMusicaPos(j)->getArtista() == musica.getArtista()){
-                                                    cout << "\nA música " << playlists[i].getLista()->buscaMusicaPos(j)->getNome() << " de " << playlists[i].getLista()->buscaMusicaPos(j)->getArtista() << " estava na posição " << j+1 <<  " da playlist " << playlists[i].getNome() << " e foi removida!";
-                                                    playlists[i].removeMusicaPos(j + 1); // Apaga a música da playlist
+                                                    if(playlists[i].removeMusicaPos(j)){ // Verifica se a remoção foi bem sucedida
+                                                        cout << "\nA música " << musica.getNome() << " de " << musica.getArtista() << " estava na posição " << j+1 <<  " da playlist " << playlists[i].getNome() << " e foi removida!";
+                                                    
+                                                    }else{
+                                                        cout << "\nErro ao remover a música " << musica.getNome() << " de " << musica.getArtista() << " da playlist " << playlists[i].getNome() << "!" << endl;
+                                                    }
                                                 }
                                             }
                                         }
                                     }
 
-                                    musicas_sistema->remove(posicao1); // Remove a música do sistema
-                                    
-                                    cout << "\nMúsica removida do sistema com sucesso!" << endl;
+                                    if(musicas_sistema->remove(posicao1 - 1)){ // Verifica se houve sucesso na remoção da música
+                                        cout << "\nMúsica removida do sistema com sucesso!" << endl;
+                                        
+                                    }else{
+                                        cout << "\nErro ao remover música!" << endl;
+                                    }
 
                                 }else{
                                     cout << "\nPosição inválida!" << endl;
@@ -283,9 +290,14 @@ int main(int argc, char const *argv[]){
                                 cout << endl;
                             }
 
-                            cout << "Músicas removidas com sucesso" << endl;
+                            if(musicas_sistema->remove(lista_temp)){ // Verifica se a remoção foi bem sucedida
+                                cout << "Músicas removidas com sucesso!" << endl;
 
-                            for(int i = lista_temp.getTamanho(); i > 0; i--){
+                            }else{
+                                cout << "Erro ao remover músicas!" << endl;
+                            }
+
+                            for(int i = lista_temp.getTamanho() - 1; i >= 0; i--){ // Limpa a lista temporária
                                 lista_temp.remove(i);
                             }
 
@@ -399,6 +411,7 @@ int main(int argc, char const *argv[]){
                                 if(posicao1 >= 1 && posicao1 <= qtd_pl){ // Verifica se a posição é válida
 
                                     posicao1--; // Ajusta a posição para a faixa de valores dos índices (0 -> n-1)
+                                    
                                     for(int i = posicao1; i < qtd_pl - 1; i++){ // Percorre o array realocando as posições
                                         playlists[i].setNome(playlists[i + 1].getNome());
                                         playlists[i].setLista(playlists[i + 1].getLista());
@@ -529,7 +542,7 @@ int main(int argc, char const *argv[]){
                                                             cin.ignore();
 
                                                             if(posicao2 > 0 && posicao2 <= playlists[posicao_pl].getLista()->getTamanho()){ // Verifica se a posição é válida
-                                                                if(playlists[posicao_pl].adicionaMusicaPos(posicao2, musica)){ // Verifica se a inserção foi bem sucedida
+                                                                if(playlists[posicao_pl].adicionaMusicaPos(posicao2 - 1, musica)){ // Verifica se a inserção foi bem sucedida
                                                                     cout << "\nMúsica adicionada na playlist com sucesso!" << endl;
                                                                 
                                                                 }else{
@@ -570,8 +583,12 @@ int main(int argc, char const *argv[]){
                                                 cin.ignore();
 
                                                 if(posicao1 >= 1 && posicao1 <= playlists[posicao_pl].getLista()->getTamanho()){ // Verifica se a posição digitada é válida
-                                                    playlists[posicao_pl].removeMusicaPos(posicao1); // Remove música da playlist
-                                                    cout << "\nMúsica removida com sucesso!" << endl;
+                                                    if(playlists[posicao_pl].removeMusicaPos(posicao1 - 1)){ // Verifica se a remoção foi bem sucedida
+                                                        cout << "\nMúsica removida com sucesso!" << endl;
+
+                                                    }else{
+                                                        cout << "\nErro ao remover música!" << endl;
+                                                    }
 
                                                 }else{
                                                     cout << "\nPosição inválida!" << endl;
@@ -607,7 +624,7 @@ int main(int argc, char const *argv[]){
 
                                                         if(posicao2 > 0 && posicao2 <= playlists[posicao_pl].getLista()->getTamanho()){ // Verifica se a posição é válida
 
-                                                            playlists[posicao_pl].moveMusica(posicao1, posicao2); // Move a música de lugar
+                                                            playlists[posicao_pl].moveMusica(posicao1 - 1, posicao2 - 1); // Move a música de lugar
 
                                                             system("clear");
 
