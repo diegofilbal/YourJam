@@ -11,6 +11,27 @@ Lista::Lista(){
     tamanho = 0;
 }
 
+Lista::Lista(Lista &lista){
+
+    // Inicializa os atributos
+    this->head = nullptr;
+    this->tail = head;
+    this->tamanho = 0;
+
+    // Variável a armazenar cada elemento da lista recebida
+    Node *temp = lista.head;
+    // Variável para receber atributos das músicas da lista recebida
+    Musica musica;
+
+    // Percorre a lista recebida inserindo cada elemento dela na lista local
+    for(int i = 0; i < lista.tamanho; i++){
+        musica.setNome(temp->musica->getNome());
+        musica.setArtista(temp->musica->getArtista());
+        insereFim(musica);
+        temp = temp->next;
+    }
+}
+
 // Destrutor
 Lista::~Lista(){
 
@@ -111,7 +132,7 @@ bool Lista::insereFim(Lista &lista_musicas){
 
         for(int i = 0; i < lista_musicas.getTamanho(); i++){ // Percorre cada música da lista e a adiciona ao sistema
             if(!insereFim(*lista_musicas.buscaMusicaPos(i))){ // Informa que a música atual já estava cadastrada no sistema
-                std::cout << "A música " << lista_musicas.buscaMusicaPos(i)->getNome() << " de " << lista_musicas.buscaMusicaPos(i)->getArtista() << " já está cadastrada no sistema!" << std::endl;
+                std::cout << "A música " << lista_musicas.buscaMusicaPos(i)->getNome() << " de " << lista_musicas.buscaMusicaPos(i)->getArtista() << " já foi inserida!" << std::endl;
             }
         }
         return true; // Retorna código de sucesso

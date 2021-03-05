@@ -13,6 +13,7 @@ private:
 public:
     // Métodos da lista
     Lista();
+    Lista(Lista &lista);
     ~Lista();
 
     bool insereInicio(Musica musica);

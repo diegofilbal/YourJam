@@ -89,7 +89,8 @@ int main(int argc, char const *argv[]){
                     cout << "| 3 - Remover música             |" << endl;
                     cout << "| 4 - Remover lista de músicas   |" << endl;
                     cout << "| 5 - Exibir músicas cadastradas |" << endl;
-                    cout << "| 6 - Voltar                     |" << endl;
+                    cout << "| 6 - Fazer cópia das músicas    |" << endl;
+                    cout << "| 7 - Voltar                     |" << endl;
                     cout << "+--------------------------------+" << endl;
 
                     cout << "Digite uma opção: ";
@@ -249,7 +250,7 @@ int main(int argc, char const *argv[]){
 
                             break;
                         
-                        case 4: // Remove lista de músicas
+                        case 4: // Remover lista de músicas
 
                             // Monta e insere as músicas na lista temporária
                             musica.setNome("Heartbreak Anniversary");
@@ -267,7 +268,6 @@ int main(int argc, char const *argv[]){
                             cout << "Lista de músicas a serem removidas do sistema:" << endl;
                             lista_temp.imprime();
                             cout << endl;
-
 
                             for(int i = 0; i < lista_temp.getTamanho(); i++){ // Percorre a lista de músicas a serem remmovidas
 
@@ -323,7 +323,40 @@ int main(int argc, char const *argv[]){
 
                             break;
                         
-                        case 6: break; // Sair
+                        case 6:{ // Testar construtor cópia
+
+                            if(musicas_sistema->getTamanho() > 0){ // Verifica se a lista do sistema não está vazia
+
+                                Lista lista_temp2(*musicas_sistema); // Declara a lista temporária utilizando o construtor cópia
+                                
+                                // Imprime as listas informando seus endereços na memória
+                                cout << "Músicas do sistema: (Endereço da lista: " << musicas_sistema << ")" << endl;
+                                for(int i = 0; i < musicas_sistema->getTamanho(); i++){
+                                    cout << i + 1 << ". " << musicas_sistema->buscaMusicaPos(i)->getNome() << " - " << musicas_sistema->buscaMusicaPos(i)->getArtista() << " (Endereço da música: " << musicas_sistema->buscaMusicaPos(i) << ")" << endl;
+                                }
+
+                                cout << endl << "Músicas do da lista cópia: (Endereço da lista: " << &lista_temp << ")" << endl;
+                                for(int i = 0; i < lista_temp2.getTamanho(); i++){
+                                    cout << i + 1 << ". " << lista_temp2.buscaMusicaPos(i)->getNome() << " - " << lista_temp2.buscaMusicaPos(i)->getArtista() << " (Endereço da música: " << lista_temp2.buscaMusicaPos(i) << ")" << endl;
+                                }
+
+                                for(int i = lista_temp.getTamanho() - 1; i >= 0; i--){ // Limpa a lista temporária
+                                    lista_temp2.remove(i);
+                                }
+
+                                cout << endl;
+
+                            }else{
+                                cout << "Não há músicas cadastradas no sistema!" << endl << endl;
+                            }
+
+                            cout << "Pressione ENTER para continuar..." << endl;
+                            getchar();
+                            system("clear");
+
+                            break;
+                        }
+                        case 7: break; // Sair
 
                         default: // Opção inválida
                             cout << "Opção inválida!" << endl;
@@ -333,7 +366,7 @@ int main(int argc, char const *argv[]){
                             break;
                     }
 
-                }while (op2 != 6);
+                }while (op2 != 7);
 
                 break;
 
