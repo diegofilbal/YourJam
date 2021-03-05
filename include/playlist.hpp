@@ -19,6 +19,7 @@ public:
 
     bool insereInicio(Musica musica);
     bool insereFim(Musica musica);
+    bool insereFim(Playlist &playlist);
     bool inserePos(int posicao, Musica musica);
     bool remove(int posicao);
     void moveMusica(int pos_inicial, int pos_final);

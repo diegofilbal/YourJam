@@ -611,17 +611,38 @@ int main(int argc, char const *argv[]){
                                         
                                         case 2: // Adicionar lista de músicas
 
-                                            musica.setNome("Pra Animar o Bar");
-                                            musica.setArtista("Cícero");
+                                            // Monta e insere músicas na playlist temporária
+                                            playlist_temp.setNome("Playlist temporária");
+
+                                            musica.setNome("Runaway");
+                                            musica.setArtista("AURORA");
                                             playlist_temp.insereFim(musica);
 
-                                            musica.setNome("What's Going On");
-                                            musica.setArtista("Marvin Gaye");
-                                            lista_temp.insereFim(musica);
+                                            musica.setNome("No Title");
+                                            musica.setArtista("Corbin");
+                                            playlist_temp.insereFim(musica);
 
-                                            musica.setNome("Heartbreak Anniversary");
-                                            musica.setArtista("Giveon");
-                                            lista_temp.insereFim(musica);
+                                            musica.setNome("Time Machine");
+                                            musica.setArtista("WILLOW");
+                                            playlist_temp.insereFim(musica);
+
+                                            cout << "Lista de músicas a serem inseridas na playlist:" << endl;
+                                            playlist_temp.imprime(playlist_temp.getLista()->buscaPos(0), 1);
+                                            cout << endl;
+
+                                            if(playlists[posicao_pl].insereFim(playlist_temp)){ // Verifica se a inserção foi bem sucedida
+                                                cout << "\nMúsicas adicionadas com sucesso!" << endl;
+                                            }else{
+                                                cout << "\nErro ao adicionar músicas à playlist!" << endl;
+                                            }
+
+                                            for(int i = playlist_temp.getLista()->getTamanho() - 1; i >= 0; i--){ // Limpa a playlist temporária
+                                                playlist_temp.remove(i);
+                                            }
+
+                                            cout << "Pressione ENTER para continuar..." << endl;
+                                            getchar();
+                                            system("clear");
 
                                             break;
 

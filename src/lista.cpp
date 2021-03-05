@@ -11,6 +11,7 @@ Lista::Lista(){
     tamanho = 0;
 }
 
+// Construtor cópia
 Lista::Lista(Lista &lista){
 
     // Inicializa os atributos

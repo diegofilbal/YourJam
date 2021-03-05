@@ -26,6 +26,11 @@ bool Playlist::insereFim(Musica musica){
     return playlist->insereFim(musica); // Retorna código retornado pela função da classe Lista
 }
 
+// Adiciona as músicas presentes em uma playlist recebida por parâmetro à playlist local
+bool Playlist::insereFim(Playlist &playlist){
+    return this->playlist->insereFim(*playlist.getLista()); // Retorna código retornado pela função da classe Lista
+}
+
 // Adiciona uma música em uma posição específica da playlist
 bool Playlist::inserePos(int pos, Musica musica){
     return playlist->inserePos(pos, musica); // Retorna código retornado pela função da classe Lista
