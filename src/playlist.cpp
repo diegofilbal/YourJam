@@ -41,6 +41,18 @@ bool Playlist::remove(int posicao){
     return playlist->remove(posicao); // Retorna código retornado pela função da classe Lista
 }
 
+// Remove uma lista de músicas da playlist
+int Playlist::remove(Playlist &playlist){
+
+    int diferenca = this->playlist->getTamanho(); // Armazena o tamanho inicial da playlist
+
+    this->playlist->remove(*playlist.getLista()); // Remove da playlist local as músicas presentes na playlist recebida
+
+    diferenca -= this->playlist->getTamanho(); // Calcula quantas músicas foram removidas
+
+    return diferenca; // Retorna o número de músicas que foram removidas
+}
+
 // Move uma música dentro da playlist
 void Playlist::moveMusica(int pos_inicial, int pos_final){
 

@@ -290,7 +290,6 @@ int main(int argc, char const *argv[]){
                                         }
                                     }
                                 }
-                                cout << endl;
                             }
 
                             if(musicas_sistema->remove(lista_temp)){ // Verifica se a remoção foi bem sucedida
@@ -521,10 +520,11 @@ int main(int argc, char const *argv[]){
                                     cout << "| 1 - Adicionar música           |" << endl;
                                     cout << "| 2 - Adicionar lista de músicas |" << endl;
                                     cout << "| 3 - Remover música             |" << endl;
-                                    cout << "| 4 - Mover música               |" << endl;
-                                    cout << "| 5 - Exibir músicas da playlist |" << endl;
-                                    cout << "| 6 - Reproduzir playlist        |" << endl;
-                                    cout << "| 7 - Voltar                     |" << endl;
+                                    cout << "| 4 - Remover lista de músicas   |" << endl;
+                                    cout << "| 5 - Mover música               |" << endl;
+                                    cout << "| 6 - Exibir músicas da playlist |" << endl;
+                                    cout << "| 7 - Reproduzir playlist        |" << endl;
+                                    cout << "| 8 - Voltar                     |" << endl;
                                     cout << "+--------------------------------+" << endl;
 
                                     cout << "Digite uma opção: ";
@@ -678,7 +678,40 @@ int main(int argc, char const *argv[]){
 
                                             break;
 
-                                        case 4: // Mover música
+                                        case 4: // Remover uma lista de músicas da playlist aberta
+                                            
+                                            // Monta e insere músicas na playlist temporária
+                                            playlist_temp.setNome("Playlist temporária");
+
+                                            musica.setNome("Runaway");
+                                            musica.setArtista("AURORA");
+                                            playlist_temp.insereFim(musica);
+
+                                            musica.setNome("No Title");
+                                            musica.setArtista("Corbin");
+                                            playlist_temp.insereFim(musica);
+
+                                            musica.setNome("Time Machine");
+                                            musica.setArtista("WILLOW");
+                                            playlist_temp.insereFim(musica);
+
+                                            cout << "Lista de músicas a serem removidas na playlist:" << endl;
+                                            playlist_temp.imprime(playlist_temp.getLista()->buscaPos(0), 1);
+                                            cout << endl << endl;
+
+                                            cout << playlists[posicao_pl].remove(playlist_temp) << " músicas foram removidas da playlist!" << endl;
+
+                                            for(int i = playlist_temp.getLista()->getTamanho() - 1; i >= 0; i--){ // Limpa a playlist temporária
+                                                playlist_temp.remove(i);
+                                            }
+
+                                            cout << "Pressione ENTER para continuar..." << endl;
+                                            getchar();
+                                            system("clear");
+
+                                            break;
+
+                                        case 5: // Mover música
 
                                             if(playlists[posicao_pl].getLista()->getTamanho() > 0){ // Verifica se há música na playlist
 
@@ -729,7 +762,7 @@ int main(int argc, char const *argv[]){
 
                                             break;
                                         
-                                        case 5: // Exibir músicas da playlist
+                                        case 6: // Exibir músicas da playlist
 
                                             if(playlists[posicao_pl].getLista()->getTamanho() > 0){ // Verifica se há músicas na playlist
                                                 playlists[posicao_pl].imprime(playlists[posicao_pl].getLista()->buscaPos(0), 1); // Imprime as músicas da playlist
@@ -745,7 +778,7 @@ int main(int argc, char const *argv[]){
 
                                             break;
 
-                                        case 6: // Tocar música
+                                        case 7: // Tocar música
 
                                             if(playlists[posicao_pl].getLista()->getTamanho() > 0){ // Verifica se a playlist tem músicas cadastradas
 
@@ -770,7 +803,7 @@ int main(int argc, char const *argv[]){
 
                                             break;
 
-                                        case 7: break; // Sair
+                                        case 8: break; // Sair
 
                                         default:
                                             cout << "Opção inválida!" << endl;
@@ -780,7 +813,7 @@ int main(int argc, char const *argv[]){
                                             break;
                                     }
 
-                                }while (op3 != 7);
+                                }while (op3 != 8);
 
                             }else{
                                 cout << "Nenhuma playlist cadastrada!\nAdicione uma playlist em \"Playlists\" no Menu Principal!" << endl << endl;

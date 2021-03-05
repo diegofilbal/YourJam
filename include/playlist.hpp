@@ -22,6 +22,7 @@ public:
     bool insereFim(Playlist &playlist);
     bool inserePos(int posicao, Musica musica);
     bool remove(int posicao);
+    int remove(Playlist &playlist);
     void moveMusica(int pos_inicial, int pos_final);
     void imprime(Node* node, int contador);
     Musica *proxMusica();
