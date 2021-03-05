@@ -17,22 +17,22 @@ Playlist::~Playlist(){
 }
 
 // Adiciona uma música no início da playlist
-bool Playlist::adicionaMusicaInicio(Musica musica){
+bool Playlist::insereInicio(Musica musica){
     return playlist->insereInicio(musica); // Retorna código retornado pela função da classe Lista
 }
 
 // Adiciona uma música no fim da playlist
-bool Playlist::adicionaMusicaFim(Musica musica){
+bool Playlist::insereFim(Musica musica){
     return playlist->insereFim(musica); // Retorna código retornado pela função da classe Lista
 }
 
 // Adiciona uma música em uma posição específica da playlist
-bool Playlist::adicionaMusicaPos(int pos, Musica musica){
+bool Playlist::inserePos(int pos, Musica musica){
     return playlist->inserePos(pos, musica); // Retorna código retornado pela função da classe Lista
 }
 
 // Remove uma música em uma posição específica da playlist
-bool Playlist::removeMusicaPos(int posicao){
+bool Playlist::remove(int posicao){
     return playlist->remove(posicao); // Retorna código retornado pela função da classe Lista
 }
 

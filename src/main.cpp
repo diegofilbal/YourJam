@@ -53,6 +53,9 @@ int main(int argc, char const *argv[]){
     // Array de todas as playlists
     Playlist *playlists = new Playlist[MAX_PL];
 
+    // Playlist auxiliar a ser usada em diferentes funções
+    Playlist playlist_temp;
+
     //system("clear");
 
     // Apresentação do menu principal do programa
@@ -218,7 +221,7 @@ int main(int argc, char const *argv[]){
                                         if(playlists[i].getLista()->buscaMusica(musica) != nullptr){
                                             for(int j = 0; j < playlists[i].getLista()->getTamanho(); j++){ // Percorre os elementos da playlist para achar a posição da música a ser apagada
                                                 if(playlists[i].getLista()->buscaMusicaPos(j)->getNome() == musica.getNome() && playlists[i].getLista()->buscaMusicaPos(j)->getArtista() == musica.getArtista()){
-                                                    if(playlists[i].removeMusicaPos(j)){ // Verifica se a remoção foi bem sucedida
+                                                    if(playlists[i].remove(j)){ // Verifica se a remoção foi bem sucedida
                                                         cout << "\nA música " << musica.getNome() << " de " << musica.getArtista() << " estava na posição " << j+1 <<  " da playlist " << playlists[i].getNome() << " e foi removida!";
                                                     
                                                     }else{
@@ -277,7 +280,7 @@ int main(int argc, char const *argv[]){
                                     if(playlists[j].getLista()->buscaMusica(musica) != nullptr){
                                         for(int k = 0; k < playlists[j].getLista()->getTamanho(); k++){ // Percorre os elementos da playlist para achar a posição da música a ser apagada
                                             if(playlists[j].getLista()->buscaMusicaPos(k)->getNome() == musica.getNome() && playlists[j].getLista()->buscaMusicaPos(k)->getArtista() == musica.getArtista()){
-                                                if(playlists[j].removeMusicaPos(k)){ // Verifica se a remoção foi bem sucedida
+                                                if(playlists[j].remove(k)){ // Verifica se a remoção foi bem sucedida
                                                     cout << "A música " << musica.getNome() << " de " << musica.getArtista() << " estava na playlist " << playlists[j].getNome() << " e foi removida!" << endl;
                                                 
                                                 }else{
@@ -516,11 +519,12 @@ int main(int argc, char const *argv[]){
                                     cout << "|      MÚSICAS DA PLAYLIST       |" << endl;
                                     cout << "+--------------------------------+" << endl;
                                     cout << "| 1 - Adicionar música           |" << endl;
-                                    cout << "| 2 - Remover música             |" << endl;
-                                    cout << "| 3 - Mover música               |" << endl;
-                                    cout << "| 4 - Exibir músicas da playlist |" << endl;
-                                    cout << "| 5 - Reproduzir playlist        |" << endl;
-                                    cout << "| 6 - Voltar                     |" << endl;
+                                    cout << "| 2 - Adicionar lista de músicas |" << endl;
+                                    cout << "| 3 - Remover música             |" << endl;
+                                    cout << "| 4 - Mover música               |" << endl;
+                                    cout << "| 5 - Exibir músicas da playlist |" << endl;
+                                    cout << "| 6 - Reproduzir playlist        |" << endl;
+                                    cout << "| 7 - Voltar                     |" << endl;
                                     cout << "+--------------------------------+" << endl;
 
                                     cout << "Digite uma opção: ";
@@ -557,7 +561,7 @@ int main(int argc, char const *argv[]){
 
                                                         if(op4 == 1){
                                                             // Insere no final
-                                                            if(playlists[posicao_pl].adicionaMusicaFim(musica)){ // Verifica se a inserção foi bem sucedida
+                                                            if(playlists[posicao_pl].insereFim(musica)){ // Verifica se a inserção foi bem sucedida
                                                                 cout << "\nMúsica adicionada na playlist com sucesso!" << endl;
 
                                                             }else{
@@ -575,7 +579,7 @@ int main(int argc, char const *argv[]){
                                                             cin.ignore();
 
                                                             if(posicao2 > 0 && posicao2 <= playlists[posicao_pl].getLista()->getTamanho()){ // Verifica se a posição é válida
-                                                                if(playlists[posicao_pl].adicionaMusicaPos(posicao2 - 1, musica)){ // Verifica se a inserção foi bem sucedida
+                                                                if(playlists[posicao_pl].inserePos(posicao2 - 1, musica)){ // Verifica se a inserção foi bem sucedida
                                                                     cout << "\nMúsica adicionada na playlist com sucesso!" << endl;
                                                                 
                                                                 }else{
@@ -605,8 +609,24 @@ int main(int argc, char const *argv[]){
 
                                             break;
                                         
-                                        case 2: // Remover música
-                                            
+                                        case 2: // Adicionar lista de músicas
+
+                                            musica.setNome("Pra Animar o Bar");
+                                            musica.setArtista("Cícero");
+                                            playlist_temp.insereFim(musica);
+
+                                            musica.setNome("What's Going On");
+                                            musica.setArtista("Marvin Gaye");
+                                            lista_temp.insereFim(musica);
+
+                                            musica.setNome("Heartbreak Anniversary");
+                                            musica.setArtista("Giveon");
+                                            lista_temp.insereFim(musica);
+
+                                            break;
+
+                                        case 3: // Remover música
+
                                             if(playlists[posicao_pl].getLista()->getTamanho() > 0){ // Verifica se há músicas cadastradas
 
                                                 playlists[posicao_pl].imprime(playlists[posicao_pl].getLista()->buscaPos(0), 1); // Imprime a lista de músicas da playlist para o usuário
@@ -616,7 +636,7 @@ int main(int argc, char const *argv[]){
                                                 cin.ignore();
 
                                                 if(posicao1 >= 1 && posicao1 <= playlists[posicao_pl].getLista()->getTamanho()){ // Verifica se a posição digitada é válida
-                                                    if(playlists[posicao_pl].removeMusicaPos(posicao1 - 1)){ // Verifica se a remoção foi bem sucedida
+                                                    if(playlists[posicao_pl].remove(posicao1 - 1)){ // Verifica se a remoção foi bem sucedida
                                                         cout << "\nMúsica removida com sucesso!" << endl;
 
                                                     }else{
@@ -637,7 +657,7 @@ int main(int argc, char const *argv[]){
 
                                             break;
 
-                                        case 3: // Mover música
+                                        case 4: // Mover música
 
                                             if(playlists[posicao_pl].getLista()->getTamanho() > 0){ // Verifica se há música na playlist
 
@@ -688,7 +708,7 @@ int main(int argc, char const *argv[]){
 
                                             break;
                                         
-                                        case 4: // Exibir músicas da playlist
+                                        case 5: // Exibir músicas da playlist
 
                                             if(playlists[posicao_pl].getLista()->getTamanho() > 0){ // Verifica se há músicas na playlist
                                                 playlists[posicao_pl].imprime(playlists[posicao_pl].getLista()->buscaPos(0), 1); // Imprime as músicas da playlist
@@ -704,7 +724,7 @@ int main(int argc, char const *argv[]){
 
                                             break;
 
-                                        case 5: // Tocar música
+                                        case 6: // Tocar música
 
                                             if(playlists[posicao_pl].getLista()->getTamanho() > 0){ // Verifica se a playlist tem músicas cadastradas
 
@@ -729,7 +749,7 @@ int main(int argc, char const *argv[]){
 
                                             break;
 
-                                        case 6: break; // Sair
+                                        case 7: break; // Sair
 
                                         default:
                                             cout << "Opção inválida!" << endl;
@@ -739,7 +759,7 @@ int main(int argc, char const *argv[]){
                                             break;
                                     }
 
-                                }while (op3 != 6);
+                                }while (op3 != 7);
 
                             }else{
                                 cout << "Nenhuma playlist cadastrada!\nAdicione uma playlist em \"Playlists\" no Menu Principal!" << endl << endl;

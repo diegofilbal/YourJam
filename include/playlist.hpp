@@ -17,10 +17,10 @@ public:
     Playlist();
     ~Playlist();
 
-    bool adicionaMusicaInicio(Musica musica);
-    bool adicionaMusicaFim(Musica musica);
-    bool adicionaMusicaPos(int posicao, Musica musica);
-    bool removeMusicaPos(int posicao);
+    bool insereInicio(Musica musica);
+    bool insereFim(Musica musica);
+    bool inserePos(int posicao, Musica musica);
+    bool remove(int posicao);
     void moveMusica(int pos_inicial, int pos_final);
     void imprime(Node* node, int contador);
     Musica *proxMusica();
