@@ -15,6 +15,7 @@ private:
 public:
     // Métodos da playlist
     Playlist();
+    Playlist(Playlist &playlist);
     ~Playlist();
 
     bool insereInicio(Musica musica);

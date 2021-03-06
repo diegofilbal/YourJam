@@ -11,6 +11,19 @@ Playlist::Playlist(){
     proxima = 0;
 }
 
+// Construtor cópia
+Playlist::Playlist(Playlist &playlist){
+    
+    // Inicializa os atributos 
+    this->playlist = new Lista;
+    this->nome = playlist.nome;
+    this->proxima = playlist.proxima;
+
+    // Chama a função sobrecarregada de inserção para copiar as músicas
+    insereFim(playlist);
+
+}
+
 // Destrutor
 Playlist::~Playlist(){
     delete playlist;
@@ -108,7 +121,7 @@ void Playlist::setLista(Lista* lista){
         for (int i = 0; i < tamanho_pl; i++){ // Insere todos os elementos da nova lista na lista original
             playlist->insereFim(*lista->buscaMusicaPos(i));
         }
-    }    
+    }
 }
 
 // Define o nome da playlist

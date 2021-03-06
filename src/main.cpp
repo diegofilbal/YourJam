@@ -524,7 +524,8 @@ int main(int argc, char const *argv[]){
                                     cout << "| 5 - Mover música               |" << endl;
                                     cout << "| 6 - Exibir músicas da playlist |" << endl;
                                     cout << "| 7 - Reproduzir playlist        |" << endl;
-                                    cout << "| 8 - Voltar                     |" << endl;
+                                    cout << "| 8 - Fazer cópia da playlist    |" << endl;
+                                    cout << "| 9 - Voltar                     |" << endl;
                                     cout << "+--------------------------------+" << endl;
 
                                     cout << "Digite uma opção: ";
@@ -624,6 +625,18 @@ int main(int argc, char const *argv[]){
 
                                             musica.setNome("Time Machine");
                                             musica.setArtista("WILLOW");
+                                            playlist_temp.insereFim(musica);
+
+                                            musica.setNome("Heartbreak Anniversary");
+                                            musica.setArtista("Giveon");
+                                            playlist_temp.insereFim(musica);
+
+                                            musica.setNome("Pra Animar o Bar");
+                                            musica.setArtista("Cícero");
+                                            playlist_temp.insereFim(musica);
+
+                                            musica.setNome("What's Going On");
+                                            musica.setArtista("Marvin Gaye");
                                             playlist_temp.insereFim(musica);
 
                                             cout << "Lista de músicas a serem inseridas na playlist:" << endl;
@@ -778,7 +791,7 @@ int main(int argc, char const *argv[]){
 
                                             break;
 
-                                        case 7: // Tocar música
+                                        case 7: // Reproduzir playlist
 
                                             if(playlists[posicao_pl].getLista()->getTamanho() > 0){ // Verifica se a playlist tem músicas cadastradas
 
@@ -803,8 +816,43 @@ int main(int argc, char const *argv[]){
 
                                             break;
 
-                                        case 8: break; // Sair
+                                        case 8: // Fazer cópia de músicas da playlist
                                             
+                                            if(playlists[posicao_pl].getLista()->getTamanho() > 0){ // Verifica se a lista do sistema não está vazia
+
+                                                Playlist playlist_temp(playlists[posicao_pl]); // Declara a lista temporária utilizando o construtor cópia
+
+                                                // Imprime as playlists informando seus endereços na memória
+                                                cout << "Playlist original: (Endereço da lista: " << playlists[posicao_pl].getLista() << ")" << endl;
+                                                cout << "Nome da playlist original: " << playlists[posicao_pl].getNome() << endl;
+                                                for(int i = 0; i < playlists[posicao_pl].getLista()->getTamanho(); i++){
+                                                    cout << i + 1 << ". " << playlists[posicao_pl].getLista()->buscaMusicaPos(i)->getNome() << " - " << playlists[posicao_pl].getLista()->buscaMusicaPos(i)->getArtista() << " (Endereço da música: " << playlists[posicao_pl].getLista()->buscaMusicaPos(i) << ")" << endl;
+                                                }
+
+                                                cout << endl << "Playlist cópia: (Endereço da lista: " << &playlist_temp << ")" << endl;
+                                                cout << "Nome da playlist cópia: " << playlist_temp.getNome() << endl;
+                                                for(int i = 0; i < playlist_temp.getLista()->getTamanho(); i++){
+                                                    cout << i + 1 << ". " << playlist_temp.getLista()->buscaMusicaPos(i)->getNome() << " - " << playlist_temp.getLista()->buscaMusicaPos(i)->getArtista() << " (Endereço da música: " << playlist_temp.getLista()->buscaMusicaPos(i) << ")" << endl;
+                                                }
+
+                                                for(int i = lista_temp.getTamanho() - 1; i >= 0; i--){ // Limpa a lista temporária
+                                                    playlist_temp.remove(i);
+                                                }
+
+                                                cout << endl;
+
+                                            }else{
+                                                cout << "Não há músicas cadastradas na playlist!" << endl << endl;
+                                            }
+
+                                            cout << "Pressione ENTER para continuar..." << endl;
+                                            getchar();
+                                            system("clear");
+
+                                            break;
+
+                                        case 9: break; // Sair
+
                                         default:
                                             cout << "Opção inválida!" << endl;
                                             cout << "Pressione ENTER para continuar..." << endl;
@@ -813,7 +861,7 @@ int main(int argc, char const *argv[]){
                                             break;
                                     }
 
-                                }while (op3 != 8);
+                                }while (op3 != 9);
 
                             }else{
                                 cout << "Nenhuma playlist cadastrada!\nAdicione uma playlist em \"Playlists\" no Menu Principal!" << endl << endl;
@@ -854,7 +902,6 @@ int main(int argc, char const *argv[]){
 
     // Libera os espaços de memória alocados dinamicamente para as músicas do sistema e para as playlists
     delete musicas_sistema;
-    //delete lista_temp;
     delete[] playlists;
 
     return 0;
