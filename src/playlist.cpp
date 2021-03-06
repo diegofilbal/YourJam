@@ -101,6 +101,18 @@ Musica* Playlist::proxMusica(){
     return nullptr; // A reprodução das músicas chegou ao fim
 }
 
+// Realiza a união de duas playlists
+Playlist* Playlist::operator+(Playlist &playlist){
+
+    // Insere a primeira playlist usando o método sobrecarregado de adição
+    Playlist *playlist_final = new Playlist(*this);
+
+    // Insere a segunda playlist usando o método sobrecarregado de adição
+    playlist_final->insereFim(playlist);
+
+    return playlist_final;
+}
+
 // Retorna a playlist
 Lista* Playlist::getLista(){
     return playlist;
