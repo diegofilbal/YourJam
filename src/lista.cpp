@@ -19,18 +19,9 @@ Lista::Lista(Lista &lista){
     this->tail = head;
     this->tamanho = 0;
 
-    // Variável a armazenar cada elemento da lista recebida
-    Node *temp = lista.head;
-    // Variável para receber atributos das músicas da lista recebida
-    Musica musica;
+    // Chama a função sobrecarregada de inserção para copiar as músicas
+    insereFim(lista);
 
-    // Percorre a lista recebida inserindo cada elemento dela na lista local
-    for(int i = 0; i < lista.tamanho; i++){
-        musica.setNome(temp->musica->getNome());
-        musica.setArtista(temp->musica->getArtista());
-        insereFim(musica);
-        temp = temp->next;
-    }
 }
 
 // Destrutor

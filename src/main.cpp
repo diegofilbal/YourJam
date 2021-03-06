@@ -92,7 +92,7 @@ int main(int argc, char const *argv[]){
                     cout << "| 3 - Remover música             |" << endl;
                     cout << "| 4 - Remover lista de músicas   |" << endl;
                     cout << "| 5 - Exibir músicas cadastradas |" << endl;
-                    cout << "| 6 - Fazer cópia das músicas    |" << endl;
+                    cout << "| 6 - Fazer cópia da lista       |" << endl;
                     cout << "| 7 - Voltar                     |" << endl;
                     cout << "+--------------------------------+" << endl;
 
@@ -325,19 +325,19 @@ int main(int argc, char const *argv[]){
 
                             break;
                         
-                        case 6:{ // Testar construtor cópia
-
+                        case 6: // Fazer cópia da lista
+                            
                             if(musicas_sistema->getTamanho() > 0){ // Verifica se a lista do sistema não está vazia
 
                                 Lista lista_temp2(*musicas_sistema); // Declara a lista temporária utilizando o construtor cópia
                                 
                                 // Imprime as listas informando seus endereços na memória
-                                cout << "Músicas do sistema: (Endereço da lista: " << musicas_sistema << ")" << endl;
+                                cout << "Lista original de músicas do sistema: (Endereço da lista: " << musicas_sistema << ")" << endl;
                                 for(int i = 0; i < musicas_sistema->getTamanho(); i++){
                                     cout << i + 1 << ". " << musicas_sistema->buscaMusicaPos(i)->getNome() << " - " << musicas_sistema->buscaMusicaPos(i)->getArtista() << " (Endereço da música: " << musicas_sistema->buscaMusicaPos(i) << ")" << endl;
                                 }
 
-                                cout << endl << "Músicas do da lista cópia: (Endereço da lista: " << &lista_temp << ")" << endl;
+                                cout << endl << "Lista cópia de músicas do sistema: (Endereço da lista: " << &lista_temp2 << ")" << endl;
                                 for(int i = 0; i < lista_temp2.getTamanho(); i++){
                                     cout << i + 1 << ". " << lista_temp2.buscaMusicaPos(i)->getNome() << " - " << lista_temp2.buscaMusicaPos(i)->getArtista() << " (Endereço da música: " << lista_temp2.buscaMusicaPos(i) << ")" << endl;
                                 }
@@ -357,7 +357,7 @@ int main(int argc, char const *argv[]){
                             system("clear");
 
                             break;
-                        }
+                        
                         case 7: break; // Sair
 
                         default: // Opção inválida
@@ -804,7 +804,7 @@ int main(int argc, char const *argv[]){
                                             break;
 
                                         case 8: break; // Sair
-
+                                            
                                         default:
                                             cout << "Opção inválida!" << endl;
                                             cout << "Pressione ENTER para continuar..." << endl;
