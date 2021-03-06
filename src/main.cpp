@@ -14,6 +14,7 @@ using std::cin;
 using std::endl;
 using std::string;
 using std::getline;
+using std::stringstream;
 
 int main(int argc, char const *argv[]){
 
@@ -73,7 +74,7 @@ int main(int argc, char const *argv[]){
 
         // Lê a string da opção e converte para inteiro
         getline(cin, s_op);
-        std::stringstream op(s_op);
+        stringstream op(s_op);
         op >> op1;
 
         system("clear");
@@ -92,15 +93,16 @@ int main(int argc, char const *argv[]){
                     cout << "| 3 - Remover música             |" << endl;
                     cout << "| 4 - Remover lista de músicas   |" << endl;
                     cout << "| 5 - Exibir músicas cadastradas |" << endl;
-                    cout << "| 6 - Fazer cópia da lista       |" << endl;
-                    cout << "| 7 - Voltar                     |" << endl;
+                    cout << "| 6 - Concatenar listas          |" << endl;
+                    cout << "| 7 - Fazer cópia da lista       |" << endl;
+                    cout << "| 8 - Voltar                     |" << endl;
                     cout << "+--------------------------------+" << endl;
 
                     cout << "Digite uma opção: ";
 
                     // Lê a string da opção e converte para inteiro
                     getline(cin, s_op); 
-                    std::stringstream op(s_op);
+                    stringstream op(s_op);
                     op >> op2;
 
                     system("clear");
@@ -135,16 +137,16 @@ int main(int argc, char const *argv[]){
                                 cin >> posicao1;
                                 cin.ignore();
 
-                                if(posicao1 > musicas_sistema->getTamanho() + 1){ // Verifica se a posição é válida
-                                    cout << "\nPosição inválida!" << endl;
-
-                                }else{
+                                if(posicao1 > 0 && posicao1 <= musicas_sistema->getTamanho() + 1){ // Verifica se a posição é válida
                                     if(musicas_sistema->inserePos(posicao1 - 1, musica)){ // Chama a função e verifica se a inserção foi bem sucedida
                                         cout << "\nMúsica cadastrada no sistema com sucesso!" << endl;
-
+                                    
                                     }else{
                                         cout << "\nErro ao cadastrar música no sistema!" << endl;
                                     }
+
+                                }else{
+                                    cout << "\nPosição inválida!" << endl;
                                 }
 
                             }else{
@@ -188,6 +190,7 @@ int main(int argc, char const *argv[]){
 
                             if(musicas_sistema->insereFim(lista_temp)){ // Verifica se a inserção foi bem sucedida
                                 cout << "\nMúsicas cadastradas com sucesso!" << endl;
+
                             }
                             else{
                                 cout << "\nErro ao cadastrar lista de músicas" << endl;
@@ -325,8 +328,79 @@ int main(int argc, char const *argv[]){
 
                             break;
                         
-                        case 6: // Fazer cópia da lista
-                            
+                        case 6:{ // Concatenar listas
+
+                            // Monta e insere as músicas na primeira lista temporária
+                            musica.setNome("Pra Animar o Bar");
+                            musica.setArtista("Cícero");
+                            lista_temp.insereFim(musica);
+
+                            musica.setNome("What's Going On");
+                            musica.setArtista("Marvin Gaye");
+                            lista_temp.insereFim(musica);
+
+                            musica.setNome("Heartbreak Anniversary");
+                            musica.setArtista("Giveon");
+                            lista_temp.insereFim(musica);
+
+                            // Imprime a lista ao usuário
+                            cout << "Lista 1:" << endl;
+                            lista_temp.imprime();
+                            cout << endl;
+
+                            // Declara e monta e insere músicas na segunda lista temporária
+                            Lista lista_temp2;
+
+                            musica.setNome("What's Going On");
+                            musica.setArtista("Marvin Gaye");
+                            lista_temp2.insereFim(musica);
+
+                            musica.setNome("Runaway");
+                            musica.setArtista("AURORA");
+                            lista_temp2.insereFim(musica);
+
+                            musica.setNome("Time Machine");
+                            musica.setArtista("WILLOW");
+                            lista_temp2.insereFim(musica);
+
+                            // Imprime a lista ao usuário
+                            cout << "Lista 2:" << endl;
+                            lista_temp2.imprime();
+                            cout << endl;
+
+                            // Declara e atribui o retorno da concatenação a um novo objeto
+                            Lista *lista_temp3;
+
+                            lista_temp3 = lista_temp + lista_temp2;
+
+                            // Imprime a lista concatenada ao usuário
+                            cout << "Lista 3 (Lista 1 + Lista2): " << endl;
+                            lista_temp3->imprime();
+                            cout << endl;
+
+                            // Limpa as listas temporárias
+                            for(int i = lista_temp.getTamanho() - 1; i >= 0; i--){
+                                lista_temp.remove(i);
+                            }
+
+                            for(int i = lista_temp2.getTamanho() - 1; i >= 0; i--){
+                                lista_temp2.remove(i);
+                            }
+
+                            for(int i = lista_temp3->getTamanho() - 1; i >= 0; i--){
+                                lista_temp3->remove(i);
+                            }
+
+                            delete lista_temp3;
+
+                            cout << "Pressione ENTER para continuar..." << endl;
+                            getchar();
+                            system("clear");
+
+                            break;
+                        }
+                        case 7: // Fazer cópia da lista
+
                             if(musicas_sistema->getTamanho() > 0){ // Verifica se a lista do sistema não está vazia
 
                                 Lista lista_temp2(*musicas_sistema); // Declara a lista temporária utilizando o construtor cópia
@@ -358,7 +432,7 @@ int main(int argc, char const *argv[]){
 
                             break;
                         
-                        case 7: break; // Sair
+                        case 8: break; // Sair
 
                         default: // Opção inválida
                             cout << "Opção inválida!" << endl;
@@ -368,7 +442,7 @@ int main(int argc, char const *argv[]){
                             break;
                     }
 
-                }while (op2 != 7);
+                }while (op2 != 8);
 
                 break;
 
@@ -390,7 +464,7 @@ int main(int argc, char const *argv[]){
 
                     // Lê a string da opção e converte para inteiro
                     getline(cin, s_op); 
-                    std::stringstream op(s_op); 
+                    stringstream op(s_op); 
                     op >> op2;
 
                     system("clear");
@@ -408,6 +482,7 @@ int main(int argc, char const *argv[]){
                                 for(int i = 0; i < qtd_pl; i++){ // Verifica se há uma playlist com o mesmo nome
                                     if(nome_playlist == playlists[i].getNome()){
                                         flag = true;
+                                        break;
                                     }
                                 }
 
@@ -532,7 +607,7 @@ int main(int argc, char const *argv[]){
 
                                     // Lê a string da opção e converte para inteiro
                                     getline(cin, s_op);
-                                    std::stringstream op(s_op);
+                                    stringstream op(s_op);
                                     op >> op3;
 
                                     system("clear");
@@ -573,13 +648,17 @@ int main(int argc, char const *argv[]){
                                                             // Insere em uma posição específica
                                                             system("clear");
                                                             
-                                                            playlists[posicao_pl].imprime(playlists[posicao_pl].getLista()->buscaPos(0), 1); // Imprime as músicas da playlist
+                                                            if(playlists[posicao_pl].getLista()->getTamanho() > 0){ // Verifica se a playlist não está vazia
+                                                                playlists[posicao_pl].imprime(playlists[posicao_pl].getLista()->buscaPos(0), 1); // Imprime as músicas da playlist
+                                                            }else{
+                                                                cout << "A playlist está vazia!" << endl;
+                                                            }
 
                                                             cout << "\nDigite a posição em que deseja inserir a música: ";
                                                             cin >> posicao2;
                                                             cin.ignore();
 
-                                                            if(posicao2 > 0 && posicao2 <= playlists[posicao_pl].getLista()->getTamanho()){ // Verifica se a posição é válida
+                                                            if(posicao2 > 0 && posicao2 <= playlists[posicao_pl].getLista()->getTamanho() + 1){ // Verifica se a posição é válida
                                                                 if(playlists[posicao_pl].inserePos(posicao2 - 1, musica)){ // Verifica se a inserção foi bem sucedida
                                                                     cout << "\nMúsica adicionada na playlist com sucesso!" << endl;
                                                                 
@@ -864,7 +943,8 @@ int main(int argc, char const *argv[]){
                                 }while (op3 != 9);
 
                             }else{
-                                cout << "Nenhuma playlist cadastrada!\nAdicione uma playlist em \"Playlists\" no Menu Principal!" << endl << endl;
+                                cout << "Nenhuma playlist cadastrada!" << endl;
+                                cout << "Adicione uma playlist em \"Playlists\" no Menu Principal!" << endl << endl;
                                 cout << "Pressione ENTER para continuar..." << endl;
                                 getchar();
                                 system("clear");

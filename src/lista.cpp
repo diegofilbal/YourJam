@@ -309,6 +309,34 @@ Musica* Lista::buscaMusicaPos(int posicao){
     return nullptr; // Posição inválida
 }
 
+// Concatena duas listas sem alterá-las e retorna uma nova lista
+Lista* Lista::operator+(Lista &lista){
+
+    // Insere a primeira lista usando o método sobrecarregado de adição
+    Lista* lista_final = new Lista(*this);
+
+    // Percorre a lista recebida e insere suas músicas na lista final
+    for(int i = 0; i < lista.getTamanho(); i++){ 
+
+        Node *temp = new Node;
+        temp->musica = new Musica;
+
+        // Copia informações da música para temp
+        temp->musica->setNome(lista.buscaMusicaPos(i)->getNome());
+        temp->musica->setArtista(lista.buscaMusicaPos(i)->getArtista());
+        temp->next = nullptr;
+
+        // Atualiza o tail
+        lista_final->tail->next = temp;
+        lista_final->tail = temp;
+
+        // Incrementa o tamanho da lista
+        lista_final->tamanho++; 
+    }
+
+    return lista_final;
+}
+
 // Imprime todas as músicas da lista
 void Lista::imprime(){
 
