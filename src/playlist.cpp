@@ -157,6 +157,22 @@ Playlist* Playlist::operator-(Musica const &musica) const{
     return playlist_final;
 }
 
+// Extrai a última música da playlist e armazena na música passada por parâmetro
+void Playlist::operator>>(Musica *&musica){
+
+    if(!playlist->getTamanho()){ // Verifica se a lista está vazia
+        musica = nullptr;
+
+    }else{
+        // Extrai o último elemento da lista para e armazena em música
+        musica->setNome(playlist->buscaMusicaPos(playlist->getTamanho() - 1)->getNome());
+        musica->setArtista(playlist->buscaMusicaPos(playlist->getTamanho() - 1)->getArtista());
+
+        remove(playlist->getTamanho() - 1); // Remove o último elemento da lista
+    }
+
+}
+
 // Insere um uma música na playlist a partir de um ponteiro de Musica
 void Playlist::operator<<(Musica *&musica){
 

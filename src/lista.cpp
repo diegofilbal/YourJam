@@ -337,14 +337,6 @@ Lista* Lista::operator+(Lista const &lista) const{
     return lista_final;
 }
 
-// Insere um nó na lista de músicas a partir de um ponteiro de Node
-void Lista::operator<<(Node *&node){
-    if(node != nullptr){ // Verifica se o node é nulo
-        insereFim(*node->musica); // Insere a música armazenada no node
-        delete node->musica; // Libera espaço de memória da heap
-    }
-}
-
 // Extrai o último elemento da lista e armazena num ponteiro de Node
 void Lista::operator>>(Node *&node){
 
@@ -358,6 +350,14 @@ void Lista::operator>>(Node *&node){
         node->next = tail->next;
         
         remove(tamanho-1); // Remove o último elemento da lista
+    }
+}
+
+// Insere um nó na lista de músicas a partir de um ponteiro de Node
+void Lista::operator<<(Node *&node){
+    if(node != nullptr){ // Verifica se o node é nulo
+        insereFim(*node->musica); // Insere a música armazenada no node
+        delete node->musica; // Libera espaço de memória da heap
     }
 }
 

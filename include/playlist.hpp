@@ -34,6 +34,7 @@ public:
     Playlist* operator+(Musica const &musica) const;
     Playlist* operator-(Playlist const &playlist) const;
     Playlist* operator-(Musica const &musica) const;
+    void operator>>(Musica *&musica);
     void operator<<(Musica *&musica);
 
     void imprime(Node *const node, int contador) const;

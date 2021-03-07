@@ -30,8 +30,8 @@ public:
     Musica* buscaMusicaPos(int posicao) const;
 
     Lista* operator+(Lista const &lista) const;
-    void operator<<(Node *&node);
     void operator>>(Node *&node);
+    void operator<<(Node *&node);
 
     void imprime() const;
     

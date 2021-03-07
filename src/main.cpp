@@ -63,7 +63,7 @@ int main(int argc, char const *argv[]){
     // Playlists auxiliares a serem usadas em diferentes funções
     Playlist playlist_temp, playlist_temp2, *playlist_temp3;
 
-    //system("clear");
+    system("clear");
 
     // Apresentação do menu principal do programa
     do{
@@ -966,7 +966,7 @@ int main(int argc, char const *argv[]){
                                 cout << "Conteúdo do node: " << node_temp->musica->getNome() << " - " << node_temp->musica->getArtista() << endl << endl;
                             
                             }else{
-                                cout << "O ponteiro aponta para uma poisção nula!" << endl << endl;
+                                cout << "O ponteiro aponta para uma posição nula!" << endl << endl;
                             }
 
                             // Imprime a lista incial
@@ -1461,7 +1461,51 @@ int main(int argc, char const *argv[]){
                             break;
 
                         case 14: // Operador de extração ">>" (4.E)
-                            /* code */
+                            
+                            // Monta e insere as músicas na playlist inicial
+                            playlist_temp.setNome("Playlist inicial");
+
+                            // Monta e insere músicas na playlist inicial
+                            musica.setNome("IknowhowIfeel");
+                            musica.setArtista("Parcels");
+                            playlist_temp.insereFim(musica);
+
+                            musica.setNome("Devil's Whisper");
+                            musica.setArtista("Raury");
+                            playlist_temp.insereFim(musica);
+
+                            musica.setNome("Plastic 100ºC");
+                            musica.setArtista("Sampha");
+                            playlist_temp.insereFim(musica);
+
+                            // Imprime a playlist incial
+                            cout << "Playlist inicial: " << endl;
+                            playlist_temp.imprime(playlist_temp.getLista()->buscaPos(0), 1);
+                            cout << endl;
+
+                            // Instancia a música
+                            musica_temp = new Musica;
+
+                            playlist_temp >> musica_temp;
+
+                            if(musica_temp != nullptr){ // Verifica se a música é nula
+                                cout << "Conteúdo da música: " << musica_temp->getNome() << " - " << musica_temp->getArtista() << endl << endl;
+
+                            }else{
+                                cout << "O ponteiro aponta para uma posição nula!" << endl << endl;
+                            }
+
+                            // Imprime a palylist incial
+                            cout << "Playlist inicial após a remoção: " << endl;
+                            playlist_temp.imprime(playlist_temp.getLista()->buscaPos(0), 1);
+                            cout << endl;
+
+                            delete musica_temp;
+
+                            cout << "Pressione ENTER para continuar..." << endl;
+                            getchar();
+                            system("clear");
+
                             break;
 
                         case 15: // Operador de inserção "<<" (4.F)
@@ -1506,8 +1550,6 @@ int main(int argc, char const *argv[]){
                             for(int i = playlist_temp.getLista()->getTamanho() - 1; i >= 0; i--){ // Limpa a playlist temporária
                                 playlist_temp.remove(i);
                             }
-
-                            //delete musica_temp;
 
                             cout << "Pressione ENTER para continuar..." << endl;
                             getchar();
