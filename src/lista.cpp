@@ -337,6 +337,14 @@ Lista* Lista::operator+(Lista &lista){
     return lista_final;
 }
 
+// Insere um nó na lista de músicas
+void Lista::operator<<(Node *&node){
+    if(node != nullptr){ // Verifica se o node é nulo
+        insereFim(*node->musica); // Insere a música armazenada no node
+        delete node->musica; // Libera espaço de memória da heap
+    }
+}
+
 // Imprime todas as músicas da lista
 void Lista::imprime(){
 

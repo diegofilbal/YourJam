@@ -45,6 +45,9 @@ int main(int argc, char const *argv[]){
     // Variável para receber o ponteiro da próxima música a ser tocada
     Musica *prox_musica;
 
+    // Node auxiliar a ser utilizado em diferentes funções
+    Node *node_temp;
+
     // Lista de todas as músicas do sistema
     Lista *musicas_sistema = new Lista;
 
@@ -933,7 +936,52 @@ int main(int argc, char const *argv[]){
                             break;
 
                         case 6: // Operador de inserção "<<" (2.C)
-                            /* code */
+
+                            // Monta e insere as músicas na lista inicial
+                            musica.setNome("Pra Animar o Bar");
+                            musica.setArtista("Cícero");
+                            lista_temp.insereFim(musica);
+
+                            musica.setNome("What's Going On");
+                            musica.setArtista("Marvin Gaye");
+                            lista_temp.insereFim(musica);
+
+                            musica.setNome("Heartbreak Anniversary");
+                            musica.setArtista("Giveon");
+                            lista_temp.insereFim(musica);
+
+                            // Imprime a lista incial
+                            cout << "Lista inicial: " << endl;
+                            lista_temp.imprime();
+                            cout << endl;
+
+                            // Define música a ser enviada no parâmetro da inserção
+                            node_temp = new Node;
+                            node_temp->musica = new Musica;
+                            node_temp->musica->setNome("Redbone");
+                            node_temp->musica->setArtista("Childish Gambino");
+
+                            cout << "Música a ser inserida na lista inicial: " << node_temp->musica->getNome() << " - " << node_temp->musica->getArtista() << endl << endl;
+
+                            // Insere a música na lista
+                            lista_temp << node_temp;
+
+                            // Imprime a lista incial
+                            cout << "Lista inicial após a inserção: " << endl;
+                            lista_temp.imprime();
+                            cout << endl;
+
+                            // Limpa a lista temporária
+                            for(int i = lista_temp.getTamanho() - 1; i >= 0; i--){ // Limpa a playlist temporária
+                                lista_temp.remove(i);
+                            }
+
+                            delete node_temp;
+
+                            cout << "Pressione ENTER para continuar..." << endl;
+                            getchar();
+                            system("clear");
+
                             break;
 
                         case 7: // Adicionar músicas (3.A)

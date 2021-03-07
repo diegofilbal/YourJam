@@ -27,6 +27,7 @@ public:
     Musica* buscaMusica(Musica musica);
     Musica* buscaMusicaPos(int posicao);
     Lista* operator+(Lista &lista);
+    void operator<<(Node *&node);
     void imprime();
     int getTamanho();
 };
