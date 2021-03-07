@@ -330,49 +330,47 @@ int main(int argc, char const *argv[]){
                         
                         case 6:{ // Concatenar listas
 
-                            // Monta e insere as músicas na primeira lista temporária
-                            musica.setNome("Pra Animar o Bar");
-                            musica.setArtista("Cícero");
-                            lista_temp.insereFim(musica);
+                            // Insere as músicas na lista de músicas do sistema
+                            musica.setNome("Here Comes The Sun");
+                            musica.setArtista("Beatles");
+                            musicas_sistema->insereFim(musica);
 
                             musica.setNome("What's Going On");
                             musica.setArtista("Marvin Gaye");
-                            lista_temp.insereFim(musica);
+                            musicas_sistema->insereFim(musica);
 
                             musica.setNome("Heartbreak Anniversary");
                             musica.setArtista("Giveon");
-                            lista_temp.insereFim(musica);
+                            musicas_sistema->insereFim(musica);
 
-                            // Declara e monta e insere músicas na segunda lista temporária
-                            Lista lista_temp2;
-
+                            // Monta e insere músicas na lista temporária
                             musica.setNome("What's Going On");
                             musica.setArtista("Marvin Gaye");
-                            lista_temp2.insereFim(musica);
+                            lista_temp.insereFim(musica);
 
                             musica.setNome("Runaway");
                             musica.setArtista("AURORA");
-                            lista_temp2.insereFim(musica);
+                            lista_temp.insereFim(musica);
 
                             musica.setNome("Time Machine");
                             musica.setArtista("WILLOW");
-                            lista_temp2.insereFim(musica);
+                            lista_temp.insereFim(musica);
 
                             // Declara e atribui o retorno da concatenação a um novo objeto
-                            Lista *lista_temp3;
-                            lista_temp3 = lista_temp + lista_temp2;
+                            Lista *lista_temp2;
+                            lista_temp2 = *musicas_sistema + lista_temp;
 
                             // Imprime as listas ao usuário
                             cout << "Lista 3 (Lista 1 + Lista2): " << endl;
-                            lista_temp3->imprime();
+                            lista_temp2->imprime();
                             cout << endl;
 
                             cout << "Lista 1:" << endl;
-                            lista_temp.imprime();
+                            musicas_sistema->imprime();
                             cout << endl;
 
                             cout << "Lista 2:" << endl;
-                            lista_temp2.imprime();
+                            lista_temp.imprime();
                             cout << endl;
 
                             // Limpa as listas temporárias
@@ -380,15 +378,11 @@ int main(int argc, char const *argv[]){
                                 lista_temp.remove(i);
                             }
 
-                            for(int i = lista_temp2.getTamanho() - 1; i >= 0; i--){
-                                lista_temp2.remove(i);
+                            for(int i = lista_temp2->getTamanho() - 1; i >= 0; i--){
+                                lista_temp2->remove(i);
                             }
 
-                            for(int i = lista_temp3->getTamanho() - 1; i >= 0; i--){
-                                lista_temp3->remove(i);
-                            }
-
-                            delete lista_temp3;
+                            delete lista_temp2;
 
                             cout << "Pressione ENTER para continuar..." << endl;
                             getchar();
@@ -596,9 +590,10 @@ int main(int argc, char const *argv[]){
                                     cout << "| 5 - Mover música               |" << endl;
                                     cout << "| 6 - Exibir músicas da playlist |" << endl;
                                     cout << "| 7 - Reproduzir playlist        |" << endl;
-                                    cout << "| 8 - Fazer união de playlists   |" << endl;
-                                    cout << "| 9 - Fazer cópia da playlist    |" << endl;
-                                    cout << "| 10 - Voltar                    |" << endl;
+                                    cout << "| 8 - Unir playlists             |" << endl;
+                                    cout << "| 9 - Unir playlist à música     |" << endl;
+                                    cout << "| 10 - Fazer cópia da playlist   |" << endl;
+                                    cout << "| 11 - Voltar                    |" << endl;
                                     cout << "+--------------------------------+" << endl;
 
                                     cout << "Digite uma opção: ";
@@ -908,36 +903,21 @@ int main(int argc, char const *argv[]){
                                             musica.setArtista("Giveon");
                                             playlist_temp.insereFim(musica);
 
-                                            // Declara e monta e insere músicas na segunda playlist temporária
-                                            Playlist playlist_temp2;
-
-                                            musica.setNome("What's Going On");
-                                            musica.setArtista("Marvin Gaye");
-                                            playlist_temp2.insereFim(musica);
-
-                                            musica.setNome("Runaway");
-                                            musica.setArtista("AURORA");
-                                            playlist_temp2.insereFim(musica);
-
-                                            musica.setNome("Time Machine");
-                                            musica.setArtista("WILLOW");
-                                            playlist_temp2.insereFim(musica);
-
                                             // Declara e atribui o retorno da união a um novo objeto
-                                            Playlist *playlist_temp3;
-                                            playlist_temp3 = playlist_temp + playlist_temp2;
+                                            Playlist *playlist_temp2;
+                                            playlist_temp2 = playlists[posicao_pl] + playlist_temp;
 
                                             // Imprime as playlists ao usuário
-                                            cout << "\nPlaylist 3 (Playlist 1 + Playlist2): " << endl;
-                                            playlist_temp3->imprime(playlist_temp3->getLista()->buscaPos(0), 1);
+                                            cout << "\nPlaylist C (Playlist A + Playlist B): " << endl;
+                                            playlist_temp2->imprime(playlist_temp2->getLista()->buscaPos(0), 1);
                                             cout << endl;
                                             
-                                            cout << "Playlist 1:" << endl;
-                                            playlist_temp.imprime(playlist_temp.getLista()->buscaPos(0), 1);
+                                            cout << "Playlist A:" << endl;
+                                            playlists[posicao_pl].imprime(playlists[posicao_pl].getLista()->buscaPos(0), 1);
                                             cout << endl;
 
-                                            cout << "Playlist 2:" << endl;
-                                            playlist_temp2.imprime(playlist_temp2.getLista()->buscaPos(0), 1);
+                                            cout << "Playlist B:" << endl;
+                                            playlist_temp.imprime(playlist_temp.getLista()->buscaPos(0), 1);
                                             cout << endl;
 
                                             // Limpa as listas temporárias
@@ -945,15 +925,11 @@ int main(int argc, char const *argv[]){
                                                 playlist_temp.remove(i);
                                             }
 
-                                            for(int i = playlist_temp2.getLista()->getTamanho() - 1; i >= 0; i--){
-                                                playlist_temp2.remove(i);
+                                            for(int i = playlist_temp2->getLista()->getTamanho() - 1; i >= 0; i--){
+                                                playlist_temp2->remove(i);
                                             }
 
-                                            for(int i = playlist_temp3->getLista()->getTamanho() - 1; i >= 0; i--){
-                                                playlist_temp3->remove(i);
-                                            }
-
-                                            delete playlist_temp3;
+                                            delete playlist_temp2;
 
                                             cout << "Pressione ENTER para continuar..." << endl;
                                             getchar();
@@ -962,7 +938,58 @@ int main(int argc, char const *argv[]){
                                             break;
                                         }
 
-                                        case 9: // Fazer cópia de músicas da playlist
+                                        case 9:{ // Unir playlist à música
+                                            
+                                            // Monta e insere as músicas na playlist temporária
+                                            musica.setNome("Pra Animar o Bar");
+                                            musica.setArtista("Cícero");
+                                            playlist_temp.insereFim(musica);
+
+                                            musica.setNome("What's Going On");
+                                            musica.setArtista("Marvin Gaye");
+                                            playlist_temp.insereFim(musica);
+
+                                            musica.setNome("Heartbreak Anniversary");
+                                            musica.setArtista("Giveon");
+                                            playlist_temp.insereFim(musica);
+
+                                            // Define música a ser enviada no parâmetro da união
+                                            musica.setNome("Bohemian Rhapsody");
+                                            musica.setArtista("Queen");
+
+                                            // Declara e atribui o retorno da união a um novo objeto
+                                            Playlist *playlist_temp2;
+                                            playlist_temp2 = playlists[posicao_pl] + musica;
+
+                                            cout << "Música a ser inserida na playlist: " << musica.getNome() << " de " << musica.getArtista() << endl;
+
+                                            // Imprime as playlists ao usuário
+                                            cout << "\nPlaylist união (Playlist + Música): " << endl;
+                                            playlist_temp2->imprime(playlist_temp2->getLista()->buscaPos(0), 1);
+                                            cout << endl;
+                                            
+                                            cout << "Playlist original:" << endl;
+                                            playlists[posicao_pl].imprime(playlists[posicao_pl].getLista()->buscaPos(0), 1);
+                                            cout << endl;
+
+                                            // Limpa as listas temporárias
+                                            for(int i = playlist_temp.getLista()->getTamanho() - 1; i >= 0; i--){
+                                                playlist_temp.remove(i);
+                                            }
+
+                                            for(int i = playlist_temp2->getLista()->getTamanho() - 1; i >= 0; i--){
+                                                playlist_temp2->remove(i);
+                                            }
+
+                                            cout << "Pressione ENTER para continuar..." << endl;
+                                            getchar();
+                                            system("clear");
+
+                                            delete playlist_temp2;
+
+                                            break;
+                                        }
+                                        case 10: // Fazer cópia de músicas da playlist
 
                                             if(playlists[posicao_pl].getLista()->getTamanho() > 0){ // Verifica se a lista do sistema não está vazia
 
@@ -997,7 +1024,7 @@ int main(int argc, char const *argv[]){
 
                                             break;
 
-                                        case 10: break; // Sair
+                                        case 11: break; // Sair
 
                                         default:
                                             cout << "Opção inválida!" << endl;
@@ -1007,7 +1034,7 @@ int main(int argc, char const *argv[]){
                                             break;
                                     }
 
-                                }while (op3 != 10);
+                                }while (op3 != 11);
 
                             }else{
                                 cout << "Nenhuma playlist cadastrada!" << endl;

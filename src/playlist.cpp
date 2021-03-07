@@ -110,6 +110,20 @@ Playlist* Playlist::operator+(Playlist &playlist){
     // Insere a segunda playlist usando o método sobrecarregado de adição
     playlist_final->insereFim(playlist);
 
+    // Retorna o ponteiro de playlist
+    return playlist_final;
+}
+
+// Insere todas as músicas da playlist local eum uma nova playlist e adiciona ouma música a ela
+Playlist* Playlist::operator+(Musica &musica){
+
+    // Insere a playlist local usando o método sobrecarregado de adição
+    Playlist *playlist_final = new Playlist(*this);
+
+    // Insera a música na última posição da playlist
+    playlist_final->insereFim(musica);
+
+    // Retorna o ponteiro de playlist
     return playlist_final;
 }
 

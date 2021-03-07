@@ -26,8 +26,9 @@ public:
     int remove(Playlist &playlist);
     void moveMusica(int pos_inicial, int pos_final);
     void imprime(Node* node, int contador);
-    Musica *proxMusica();
+    Musica* proxMusica();
     Playlist* operator+(Playlist &playlist);
+    Playlist* operator+(Musica &musica);
     Lista* getLista();
     void setLista(Lista* lista);
     std::string getNome();
