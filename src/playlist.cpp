@@ -149,6 +149,23 @@ Playlist* Playlist::operator-(Playlist &playlist){
     return playlist_final;
 }
 
+// Retorna uma nova lista contendo os elementos da playlist local que não estão na playlist recebida
+Playlist* Playlist::operator-(Musica &musica){
+
+    // Insere todas as músicas da playlist local utilizando o método sobrecarregado de inserção
+    Playlist* playlist_final = new Playlist(*this);
+
+    if(playlist_final->getLista()->buscaMusica(musica)){ // Verifica se a música recebida por parâmetro está na playlist
+        for(int i = 0; i < playlist_final->getLista()->getTamanho(); i++){ // Percorre a lista e procura a posição em que a música a ser removida está posicionada
+            if(playlist_final->getLista()->buscaMusicaPos(i)->getNome() == musica.getNome() && playlist_final->getLista()->buscaMusicaPos(i)->getArtista() == musica.getArtista()){
+                playlist_final->remove(i); // Remove a música
+            }
+        }
+    }
+
+    return playlist_final;
+}
+
 // Retorna a playlist
 Lista* Playlist::getLista(){
     return playlist;

@@ -30,6 +30,7 @@ public:
     Playlist* operator+(Playlist &playlist);
     Playlist* operator+(Musica &musica);
     Playlist* operator-(Playlist &playlist);
+    Playlist* operator-(Musica &musica);
     Lista* getLista();
     void setLista(Lista* lista);
     std::string getNome();
