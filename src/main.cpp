@@ -45,6 +45,9 @@ int main(int argc, char const *argv[]){
     // Variável para receber o ponteiro da próxima música a ser tocada
     Musica *prox_musica;
 
+    // Musica auxiliar a ser utilizada em diferentes funções
+    Musica *musica_temp;
+
     // Node auxiliar a ser utilizado em diferentes funções
     Node *node_temp;
 
@@ -1005,7 +1008,7 @@ int main(int argc, char const *argv[]){
                             lista_temp.imprime();
                             cout << endl;
 
-                            // Define música a ser enviada no parâmetro da inserção
+                            // Inicializa o node a ser enviado no parâmetro da inserção
                             node_temp = new Node;
                             node_temp->musica = new Musica;
                             node_temp->musica->setNome("Redbone");
@@ -1462,11 +1465,57 @@ int main(int argc, char const *argv[]){
                             break;
 
                         case 15: // Operador de inserção "<<" (4.F)
-                            /* code */
+                            
+                            // Monta e insere as músicas na playlist inicial
+                            playlist_temp.setNome("Playlist inicial");
+
+                            // Monta e insere músicas na playlist inicial
+                            musica.setNome("IknowhowIfeel");
+                            musica.setArtista("Parcels");
+                            playlist_temp.insereFim(musica);
+
+                            musica.setNome("Devil's Whisper");
+                            musica.setArtista("Raury");
+                            playlist_temp.insereFim(musica);
+
+                            musica.setNome("Plastic 100ºC");
+                            musica.setArtista("Sampha");
+                            playlist_temp.insereFim(musica);
+
+                            // Imprime a playlist incial
+                            cout << "Playlist inicial: " << endl;
+                            playlist_temp.imprime(playlist_temp.getLista()->buscaPos(0), 1);
+                            cout << endl;
+
+                            // Inicializa a música a ser enviada no parâmetro da inserção
+                            musica_temp = new Musica;
+                            musica_temp->setNome("Pink + White");
+                            musica_temp->setArtista("Frank Ocean");
+
+                            cout << "Música a ser inserida na playlist inicial: " << musica_temp->getNome() << " - " << musica_temp->getArtista() << endl << endl;
+
+                            // Insere a música na playlist
+                            playlist_temp << musica_temp;
+
+                            // Imprime a playlist incial
+                            cout << "Playlist inicial após a inserção: " << endl;
+                            playlist_temp.imprime(playlist_temp.getLista()->buscaPos(0), 1);
+                            cout << endl;
+
+                            // Limpa a lista temporária
+                            for(int i = playlist_temp.getLista()->getTamanho() - 1; i >= 0; i--){ // Limpa a playlist temporária
+                                playlist_temp.remove(i);
+                            }
+
+                            //delete musica_temp;
+
+                            cout << "Pressione ENTER para continuar..." << endl;
+                            getchar();
+                            system("clear");
+
                             break;
 
-                        case 16:
-                            break; // Sair
+                        case 16: break; // Sair
 
                         default:
                             break;

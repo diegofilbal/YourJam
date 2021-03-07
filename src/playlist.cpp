@@ -157,6 +157,16 @@ Playlist* Playlist::operator-(Musica const &musica) const{
     return playlist_final;
 }
 
+// Insere um uma música na playlist a partir de um ponteiro de Musica
+void Playlist::operator<<(Musica *&musica){
+
+    if(musica != nullptr){ // Verifica se a música é nula
+        insereFim(*musica); // Insere a música
+        delete musica; // Libera espaço de memória da heap
+    }
+
+}
+
 // Imprime as músicas da playlist recursivamente
 void Playlist::imprime(Node* const node, int contador) const{
     if(node == nullptr){ // Verifica se a lista já chegou ao fim
