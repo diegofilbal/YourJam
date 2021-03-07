@@ -932,7 +932,57 @@ int main(int argc, char const *argv[]){
                             break;
 
                         case 5: // Operador de extração ">>" (2.B)
-                            /* code */
+
+                            // Monta e insere as músicas na lista inicial
+                            musica.setNome("Pra Animar o Bar");
+                            musica.setArtista("Cícero");
+                            lista_temp.insereFim(musica);
+
+                            musica.setNome("What's Going On");
+                            musica.setArtista("Marvin Gaye");
+                            lista_temp.insereFim(musica);
+
+                            musica.setNome("Heartbreak Anniversary");
+                            musica.setArtista("Giveon");
+                            lista_temp.insereFim(musica);
+
+                            // Imprime a lista incial
+                            cout << "Lista inicial: " << endl;
+                            lista_temp.imprime();
+                            cout << endl;
+
+                            // Instancia o node
+                            node_temp = new Node;
+                            node_temp->musica = new Musica;
+
+                            // Extrai o última elemento da lista
+                            lista_temp >> node_temp;
+
+                            // Imprime o conteúdo do node
+                            if(node_temp != nullptr){
+                                cout << "Conteúdo do node: " << node_temp->musica->getNome() << " - " << node_temp->musica->getArtista() << endl << endl;
+                            
+                            }else{
+                                cout << "O ponteiro aponta para uma poisção nula!" << endl << endl;
+                            }
+
+                            // Imprime a lista incial
+                            cout << "Lista inicial após a remoção: " << endl;
+                            lista_temp.imprime();
+                            cout << endl;
+
+                            // Limpa a lista temporária
+                            for(int i = lista_temp.getTamanho() - 1; i >= 0; i--){ // Limpa a playlist temporária
+                                lista_temp.remove(i);
+                            }
+
+                            delete node_temp->musica;
+                            delete node_temp;
+
+                            cout << "Pressione ENTER para continuar..." << endl;
+                            getchar();
+                            system("clear");
+
                             break;
 
                         case 6: // Operador de inserção "<<" (2.C)

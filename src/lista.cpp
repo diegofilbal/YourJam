@@ -345,6 +345,22 @@ void Lista::operator<<(Node *&node){
     }
 }
 
+// Extrai o último elemento da lista
+void Lista::operator>>(Node *&node){
+
+    if(!tamanho){ // Verifica se a lista está vazia
+        node = nullptr;
+
+    }else{
+        // Extrai o último elemento da lista para o node
+        node->musica->setNome(tail->musica->getNome());
+        node->musica->setArtista(tail->musica->getArtista());
+        node->next = tail->next;
+        
+        remove(tamanho-1); // Remove o último elemento da lista
+    }
+}
+
 // Imprime todas as músicas da lista
 void Lista::imprime(){
 
