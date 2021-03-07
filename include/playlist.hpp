@@ -15,25 +15,32 @@ private:
 public:
     // Métodos da playlist
     Playlist();
-    Playlist(Playlist &playlist);
+    Playlist(Playlist const &playlist);
     ~Playlist();
 
     bool insereInicio(Musica musica);
     bool insereFim(Musica musica);
-    bool insereFim(Playlist &playlist);
+    bool insereFim(Playlist const &playlist);
     bool inserePos(int posicao, Musica musica);
+
     bool remove(int posicao);
-    int remove(Playlist &playlist);
+    int remove(Playlist const &playlist);
+
     void moveMusica(int pos_inicial, int pos_final);
-    void imprime(Node* node, int contador);
+
     Musica* proxMusica();
-    Playlist* operator+(Playlist &playlist);
-    Playlist* operator+(Musica &musica);
-    Playlist* operator-(Playlist &playlist);
-    Playlist* operator-(Musica &musica);
-    Lista* getLista();
-    void setLista(Lista* lista);
-    std::string getNome();
-    void setNome(std::string);
+
+    Playlist* operator+(Playlist const &playlist) const;
+    Playlist* operator+(Musica const &musica) const;
+    Playlist *operator-(Playlist const &playlist) const;
+    Playlist *operator-(Musica const &musica) const;
+
+    void imprime(Node *const node, int contador) const;
+
+    Lista *getLista() const;
+    void setLista(Lista* const lista);
+
+    std::string getNome() const;
+    void setNome(std::string nome);
 
 };

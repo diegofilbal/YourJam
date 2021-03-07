@@ -12,7 +12,7 @@ Playlist::Playlist(){
 }
 
 // Construtor cópia
-Playlist::Playlist(Playlist &playlist){
+Playlist::Playlist(Playlist const &playlist){
     
     // Inicializa os atributos 
     this->playlist = new Lista;
@@ -40,7 +40,7 @@ bool Playlist::insereFim(Musica musica){
 }
 
 // Adiciona as músicas presentes em uma playlist recebida por parâmetro à playlist local
-bool Playlist::insereFim(Playlist &playlist){
+bool Playlist::insereFim(Playlist const &playlist){
     return this->playlist->insereFim(*playlist.getLista()); // Retorna código retornado pela função da classe Lista
 }
 
@@ -55,7 +55,7 @@ bool Playlist::remove(int posicao){
 }
 
 // Remove uma lista de músicas da playlist
-int Playlist::remove(Playlist &playlist){
+int Playlist::remove(Playlist const &playlist){
 
     int diferenca = this->playlist->getTamanho(); // Armazena o tamanho inicial da playlist
 
@@ -79,15 +79,6 @@ void Playlist::moveMusica(int pos_inicial, int pos_final){
     playlist->inserePos(pos_final, musica); // Insere a música na posição para qual o usuário deseja movê-la
 }
 
-// Imprime as músicas da playlist recursivamente
-void Playlist::imprime(Node* node, int contador){
-    if(node == nullptr){ // Verifica se a lista já chegou ao fim
-        return;
-    }
-    std::cout << contador << ". " << node->musica->getNome() << " - " << node->musica->getArtista() << std::endl;
-    imprime(node->next, contador + 1); // Faz a chamada recursiva para a immressão do próximo node 
-}
-
 // Retorna a próxima música a ser tocada
 Musica* Playlist::proxMusica(){
 
@@ -102,7 +93,7 @@ Musica* Playlist::proxMusica(){
 }
 
 // Realiza a união de duas playlists
-Playlist* Playlist::operator+(Playlist &playlist){
+Playlist* Playlist::operator+(Playlist const &playlist) const{
 
     // Insere a primeira playlist usando o método sobrecarregado de inserção
     Playlist *playlist_final = new Playlist(*this);
@@ -115,7 +106,7 @@ Playlist* Playlist::operator+(Playlist &playlist){
 }
 
 // Insere todas as músicas da playlist local eum uma nova playlist e adiciona ouma música a ela
-Playlist* Playlist::operator+(Musica &musica){
+Playlist* Playlist::operator+(Musica const &musica) const{
 
     // Insere a playlist local usando o método sobrecarregado de inserção
     Playlist *playlist_final = new Playlist(*this);
@@ -128,7 +119,7 @@ Playlist* Playlist::operator+(Musica &musica){
 }
 
 // Retorna uma nova lista contendo os elementos da playlist local que não estão na playlist recebida
-Playlist* Playlist::operator-(Playlist &playlist){
+Playlist* Playlist::operator-(Playlist const &playlist) const{
 
     // Insere todas as músicas da playlist local utilizando o método sobrecarregado de inserção
     Playlist* playlist_final = new Playlist(*this);
@@ -150,7 +141,7 @@ Playlist* Playlist::operator-(Playlist &playlist){
 }
 
 // Retorna uma nova lista contendo os elementos da playlist local que não estão na playlist recebida
-Playlist* Playlist::operator-(Musica &musica){
+Playlist* Playlist::operator-(Musica const &musica) const{
 
     // Insere todas as músicas da playlist local utilizando o método sobrecarregado de inserção
     Playlist* playlist_final = new Playlist(*this);
@@ -166,13 +157,22 @@ Playlist* Playlist::operator-(Musica &musica){
     return playlist_final;
 }
 
+// Imprime as músicas da playlist recursivamente
+void Playlist::imprime(Node* const node, int contador) const{
+    if(node == nullptr){ // Verifica se a lista já chegou ao fim
+        return;
+    }
+    std::cout << contador << ". " << node->musica->getNome() << " - " << node->musica->getArtista() << std::endl;
+    imprime(node->next, contador + 1); // Faz a chamada recursiva para a immressão do próximo node 
+}
+
 // Retorna a playlist
-Lista* Playlist::getLista(){
+Lista* Playlist::getLista() const{
     return playlist;
 }
 
 // Descarta a lista antiga e faz uma cópia da lista recebida
-void Playlist::setLista(Lista* lista){
+void Playlist::setLista(Lista* const lista){
 
     int tamanho_pl = playlist->getTamanho(); // Recebe o tamanho da playlist a ser redefinida
 
@@ -195,6 +195,6 @@ void Playlist::setNome(std::string nome){
 }
 
 // Retorna o nome da playlist
-std::string Playlist::getNome(){
+std::string Playlist::getNome() const{
     return nome;
 }

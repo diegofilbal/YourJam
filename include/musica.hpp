@@ -14,10 +14,10 @@ public:
     Musica();
     ~Musica();
 
-    std::string getNome();
-    void setNome(std::string nome);
+    std::string getNome() const;
+    void setNome(std::string const nome);
 
-    std::string getArtista();
-    void setArtista(std::string artista);
+    std::string getArtista() const;
+    void setArtista(std::string const artista);
 
 };

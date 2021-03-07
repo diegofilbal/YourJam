@@ -12,7 +12,7 @@ Lista::Lista(){
 }
 
 // Construtor cópia
-Lista::Lista(Lista &lista){
+Lista::Lista(Lista const &lista){
 
     // Inicializa os atributos
     this->head = nullptr;
@@ -118,7 +118,7 @@ bool Lista::insereFim(Musica musica){
 }
 
 // Insere uma lista de músicas no sistema
-bool Lista::insereFim(Lista &lista_musicas){
+bool Lista::insereFim(Lista const &lista_musicas){
 
     if(lista_musicas.getTamanho() > 0){ // Verifica se a lista não está vazia
 
@@ -217,7 +217,7 @@ bool Lista::remove(int posicao){
 }
 
 // Remove uma lista de músicas do sistema
-bool Lista::remove(Lista &lista_musicas){
+bool Lista::remove(Lista const &lista_musicas){
 
     if(tamanho > 0 && lista_musicas.tamanho > 0){ //  Verifica as listas não estão vazias
         for(int i = 0; i < lista_musicas.tamanho; i++){ // Percorre a lista recebida
@@ -243,7 +243,7 @@ bool Lista::remove(Lista &lista_musicas){
 }
 
 // Verifica se uma determinada música está cadastrada no sistema (retorna ponteiro de Node)
-Node* Lista::busca(Musica musica){
+Node* Lista::busca(Musica musica) const{
 
     Node *atual = head; // Objeto a receber os elementos da lista durante as iterações do laço
 
@@ -260,7 +260,7 @@ Node* Lista::busca(Musica musica){
 }
 
 // Verifica se uma determinada música está cadastrada no sistema por sua posição (retorna ponteiro de Node)
-Node* Lista::buscaPos(int posicao){
+Node* Lista::buscaPos(int posicao) const{
 
     if(posicao >= 0 && posicao < tamanho){ // Verifica se a posição é válida
 
@@ -277,7 +277,7 @@ Node* Lista::buscaPos(int posicao){
 }
 
 // Verifica se uma determinada música está cadastrada no sistema (retorna ponteiro de Musica)
-Musica* Lista::buscaMusica(Musica musica){
+Musica* Lista::buscaMusica(Musica musica) const{
     
     Node *atual = head; // Objeto a receber os elementos da lista durante as iterações do laço
 
@@ -294,7 +294,7 @@ Musica* Lista::buscaMusica(Musica musica){
 }
 
 // Verifica se uma determinada música está cadastrada no sistema por sua posição (retorna ponteiro de Musica)
-Musica* Lista::buscaMusicaPos(int posicao){
+Musica* Lista::buscaMusicaPos(int posicao) const{
 
     if(posicao >= 0 && posicao < tamanho){ // Verifica se a posição é válida
 
@@ -310,7 +310,7 @@ Musica* Lista::buscaMusicaPos(int posicao){
 }
 
 // Concatena duas listas sem alterá-las e retorna uma nova lista
-Lista* Lista::operator+(Lista &lista){
+Lista* Lista::operator+(Lista const &lista) const{
 
     // Insere a primeira lista usando o método sobrecarregado de adição
     Lista* lista_final = new Lista(*this);
@@ -337,7 +337,7 @@ Lista* Lista::operator+(Lista &lista){
     return lista_final;
 }
 
-// Insere um nó na lista de músicas
+// Insere um nó na lista de músicas a partir de um ponteiro de Node
 void Lista::operator<<(Node *&node){
     if(node != nullptr){ // Verifica se o node é nulo
         insereFim(*node->musica); // Insere a música armazenada no node
@@ -345,7 +345,7 @@ void Lista::operator<<(Node *&node){
     }
 }
 
-// Extrai o último elemento da lista
+// Extrai o último elemento da lista e armazena num ponteiro de Node
 void Lista::operator>>(Node *&node){
 
     if(!tamanho){ // Verifica se a lista está vazia
@@ -362,7 +362,7 @@ void Lista::operator>>(Node *&node){
 }
 
 // Imprime todas as músicas da lista
-void Lista::imprime(){
+void Lista::imprime() const{
 
     Node *temp = head;
 
@@ -373,6 +373,6 @@ void Lista::imprime(){
 }
 
 // Retorna o tamanho da lista
-int Lista::getTamanho(){
+int Lista::getTamanho() const{
     return tamanho;
 }
