@@ -29,6 +29,7 @@ public:
     Musica* proxMusica();
     Playlist* operator+(Playlist &playlist);
     Playlist* operator+(Musica &musica);
+    Playlist* operator-(Playlist &playlist);
     Lista* getLista();
     void setLista(Lista* lista);
     std::string getNome();

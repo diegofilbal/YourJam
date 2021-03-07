@@ -104,10 +104,10 @@ Musica* Playlist::proxMusica(){
 // Realiza a união de duas playlists
 Playlist* Playlist::operator+(Playlist &playlist){
 
-    // Insere a primeira playlist usando o método sobrecarregado de adição
+    // Insere a primeira playlist usando o método sobrecarregado de inserção
     Playlist *playlist_final = new Playlist(*this);
 
-    // Insere a segunda playlist usando o método sobrecarregado de adição
+    // Insere a segunda playlist usando o método sobrecarregado de inserção
     playlist_final->insereFim(playlist);
 
     // Retorna o ponteiro de playlist
@@ -117,13 +117,35 @@ Playlist* Playlist::operator+(Playlist &playlist){
 // Insere todas as músicas da playlist local eum uma nova playlist e adiciona ouma música a ela
 Playlist* Playlist::operator+(Musica &musica){
 
-    // Insere a playlist local usando o método sobrecarregado de adição
+    // Insere a playlist local usando o método sobrecarregado de inserção
     Playlist *playlist_final = new Playlist(*this);
 
     // Insera a música na última posição da playlist
     playlist_final->insereFim(musica);
 
     // Retorna o ponteiro de playlist
+    return playlist_final;
+}
+
+// Retorna uma nova lista contendo os elementos da playlist local que não estão na playlist recebida
+Playlist* Playlist::operator-(Playlist &playlist){
+
+    // Insere todas as músicas da playlist local utilizando o método sobrecarregado de inserção
+    Playlist* playlist_final = new Playlist(*this);
+
+    // Armazena as músicas para a comparação durante o laço
+    Musica musica;
+
+    // Remove da playlist final as músicas que estão na playlist recebid apor parâmetro
+    for(int i = playlist_final->playlist->getTamanho() - 1; i >= 0; i--){
+
+        musica = *playlist_final->getLista()->buscaMusicaPos(i);
+
+        if(playlist.getLista()->buscaMusica(musica)){ // Verifica se a música está nas duas playlists
+            playlist_final->remove(i); // Remove a música
+        }
+    }
+
     return playlist_final;
 }
 

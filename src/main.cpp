@@ -592,8 +592,9 @@ int main(int argc, char const *argv[]){
                                     cout << "| 7 - Reproduzir playlist        |" << endl;
                                     cout << "| 8 - Unir playlists             |" << endl;
                                     cout << "| 9 - Unir playlist à música     |" << endl;
-                                    cout << "| 10 - Fazer cópia da playlist   |" << endl;
-                                    cout << "| 11 - Voltar                    |" << endl;
+                                    cout << "| 10 - Diferença entre playlists |" << endl;
+                                    cout << "| 11 - Fazer cópia da playlist   |" << endl;
+                                    cout << "| 12 - Voltar                    |" << endl;
                                     cout << "+--------------------------------+" << endl;
 
                                     cout << "Digite uma opção: ";
@@ -890,7 +891,7 @@ int main(int argc, char const *argv[]){
 
                                         case 8:{ // União de playlists
                                             
-                                            // Monta e insere as músicas na primeira playlist temporária
+                                            // Monta e insere as músicas na playlist temporária
                                             musica.setNome("Pra Animar o Bar");
                                             musica.setArtista("Cícero");
                                             playlist_temp.insereFim(musica);
@@ -908,7 +909,7 @@ int main(int argc, char const *argv[]){
                                             playlist_temp2 = playlists[posicao_pl] + playlist_temp;
 
                                             // Imprime as playlists ao usuário
-                                            cout << "\nPlaylist C (Playlist A + Playlist B): " << endl;
+                                            cout << "\nPlaylist C (Playlist A U Playlist B): " << endl;
                                             playlist_temp2->imprime(playlist_temp2->getLista()->buscaPos(0), 1);
                                             cout << endl;
                                             
@@ -937,7 +938,6 @@ int main(int argc, char const *argv[]){
 
                                             break;
                                         }
-
                                         case 9:{ // Unir playlist à música
                                             
                                             // Monta e insere as músicas na playlist temporária
@@ -989,7 +989,56 @@ int main(int argc, char const *argv[]){
 
                                             break;
                                         }
-                                        case 10: // Fazer cópia de músicas da playlist
+                                        case 10:{ // Diferença entre playlists
+
+                                            // Monta e insere as músicas na playlist temporária
+                                            musica.setNome("Believer");
+                                            musica.setArtista("Imagine Dragons");
+                                            playlist_temp.insereFim(musica);
+
+                                            musica.setNome("What's Going On");
+                                            musica.setArtista("Marvin Gaye");
+                                            playlist_temp.insereFim(musica);
+
+                                            musica.setNome("Heartbreak Anniversary");
+                                            musica.setArtista("Giveon");
+                                            playlist_temp.insereFim(musica);
+
+                                            // Declara e atribui o retorno da diferença a um novo objeto
+                                            Playlist *playlist_temp2;
+                                            playlist_temp2 = playlists[posicao_pl] - playlist_temp;
+
+                                            // Imprime as playlists ao usuário
+                                            cout << "\nPlaylist C (Playlist A - Playlist B): " << endl;
+                                            playlist_temp2->imprime(playlist_temp2->getLista()->buscaPos(0), 1);
+                                            cout << endl;
+                                            
+                                            cout << "Playlist A:" << endl;
+                                            playlists[posicao_pl].imprime(playlists[posicao_pl].getLista()->buscaPos(0), 1);
+                                            cout << endl;
+
+                                            cout << "Playlist B:" << endl;
+                                            playlist_temp.imprime(playlist_temp.getLista()->buscaPos(0), 1);
+                                            cout << endl;
+
+                                            // Limpa as listas temporárias
+                                            for(int i = playlist_temp.getLista()->getTamanho() - 1; i >= 0; i--){
+                                                playlist_temp.remove(i);
+                                            }
+
+                                            for(int i = playlist_temp2->getLista()->getTamanho() - 1; i >= 0; i--){
+                                                playlist_temp2->remove(i);
+                                            }
+
+                                            delete playlist_temp2;
+
+                                            cout << "Pressione ENTER para continuar..." << endl;
+                                            getchar();
+                                            system("clear");
+
+                                            break;
+                                        }
+                                        case 11: // Fazer cópia de músicas da playlist
 
                                             if(playlists[posicao_pl].getLista()->getTamanho() > 0){ // Verifica se a lista do sistema não está vazia
 
@@ -1024,7 +1073,7 @@ int main(int argc, char const *argv[]){
 
                                             break;
 
-                                        case 11: break; // Sair
+                                        case 12: break; // Sair
 
                                         default:
                                             cout << "Opção inválida!" << endl;
@@ -1034,7 +1083,7 @@ int main(int argc, char const *argv[]){
                                             break;
                                     }
 
-                                }while (op3 != 11);
+                                }while (op3 != 12);
 
                             }else{
                                 cout << "Nenhuma playlist cadastrada!" << endl;
